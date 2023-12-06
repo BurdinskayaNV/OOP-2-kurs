@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     // cmd arg
     // argv[0] - имя файла zd2_number4.exe
 	// значит начинаем argv[1]	
-    if (k > 1)
+    if (k > 1)  // условия что я ввожу аргументы
 	{
 		str_argv = argv [1];
 		if (str_argv == "help")	// Если введут help
