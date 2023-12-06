@@ -33,3 +33,10 @@
 - Сделано автоматическое тестирование программы с помощью макроса assert
 
 ![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/caab6e43-2422-4183-97d0-729b12288e8e)
+
+- Аргументы командной строки cmd arg для функции main
+  
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/a33d5a4a-4795-4f31-b1b1-fa0c2d79721e)
+
+
+
