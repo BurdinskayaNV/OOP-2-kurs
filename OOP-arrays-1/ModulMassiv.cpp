@@ -9,20 +9,9 @@
 // ПРОСТРАНСТВО ИМЕН ДЛЯ МАССИВА
 namespace NamespaceMassiv
 {
-	//----------функция выделение памяти для массива размерности n
-	/* int* Memo_Mass(unsigned n)
-	{
-		// возвращает массив типа int, * одномерный
-		// n – формальный параметр
-		// динамический массив размерность n, инициализация всего массива нулями
-		int* a = new int [n] {0};
-		return a; // возврат массива А из функции Memo_Mass
-	} */
-
 	//---процедура ввода массива размерности n
 	// Динамические массивы в функции передаются как векторы
 	// ничего не возвращает, просто вводит данные в массив
-	//template<typename type>
 	void Vvod_Mass(vector<double>& a)
 	{
 		// массив a – формальные параметры
@@ -38,7 +27,6 @@ namespace NamespaceMassiv
 
 	//---процедура вывода на экран массива N
 	// ничего не возвращает, просто выводит на консоль
-	//template<typename type>
 	void Screen_Mass(vector<double>& a)
 	{
 		// массив a – формальные параметры
@@ -81,17 +69,9 @@ namespace NamespaceMassiv
 		assert(Sum_Mass(b) == 6); // проверка не через константу EPS
 
 		cout << "test Sum_Mass - OK" << endl;
+		b.clear();
 		//после окончания работы c массивом обязательно освобождаем его память
-		//delete[] b;
 	}
-
-	//-----функция освобождение памяти массива N
-	// массив *a формальные параметры
-	// ничего не возвращает, просто удаляет память у массива а
-	/*void Del_Mass(int* a)
-	{
-		delete[] a;
-	}*/
 }
 
 // ПРОСТРАНСТВО ИМЕН ДЛЯ МАССИВА В ФАЙЛЕ
@@ -161,5 +141,26 @@ namespace NamespaceFile
 		Fin.close(); /// Функция fclose() закрывает поток файла
 		cout << "Add. End of recording" << endl;
 		cout << "\n";
+	}
+
+	//---функция поиска количества элементов массива в файле
+	unsigned SizeFile(const string& file_name)
+	{
+		unsigned res = 0; // Переменная для счета количества строк
+		string line; // Строка, с помощью которой ищем количество строк
+		ifstream file(file_name); // Открытие файла 
+		if (!file.is_open()) // Если не открыт файл
+		{
+			throw runtime_error("File not found"); // Если что, то в ошибку
+		}
+		// Цикл счёта количества строк -> количества элементов массива
+		while (getline(file, line))
+		{
+			res++; // Цикл будет жить, пока getline делает переходы
+		}
+		file.close(); // Закрыть файл
+		if (res == 0) // Ошибка, если файл пуст
+			throw runtime_error("Array not found in file - file is empty");
+		return res;
 	}
 }
