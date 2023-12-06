@@ -1,4 +1,4 @@
-﻿/// \file Massiv_main.cpp
+/// \file Massiv_main.cpp
 /// \brief тело основной программы
 /// \brief использован одномерный динамический массив
 /// \brief выделение памяти для массива, освобождение памяти массива
@@ -11,6 +11,8 @@
 /// \brief оформлен через модуль из трёх файлов
 /// \brief создан репозиторий в GitHub
 /// \brief 
+/// \brief использован vector вместо классического массива
+/// \brief Аргументы командной строки cmd arg для функции main
 /// \author Бурдинская Наталья ВМК-22
 /// \date 29.10.2023
 
@@ -25,37 +27,43 @@ using namespace NamespaceMassiv;
 // пространство имён для работы с матрицей в файлах
 using namespace NamespaceFile;
 
-int main(int argc, char const* argv[]) //главная функция, вызываемая при запуске программы
+int main(int argc, char* argv[]) //главная функция, вызываемая при запуске программы
 {
 	// Функция setlocale задаёт локализацию программы. 
 	// LC_ALL указывает программе, что локализированы будут все функции.
 	// «Rus» локализация произойдёт на русский язык.
 	setlocale(LC_ALL, "RUSSIAN");
-	unsigned n;
+	// Аргументы командной строки cmd arg для функции main
+	// argv[0] - имя файла Massiv_main.exe
+	// значит начинаем argv[1]	
+	int n = stoi(argv[1]);
+	vector<double> arr;
+	arr.resize(n);
 	// Задаем размерность массива
-	cout << "Dimension of the massiv N " << endl;
-	cout << "n = "; cin >> n;
-	int* f = Memo_Mass(n); // выделение памяти для массива n
-	Vvod_Mass(f, n); // выполняем ввод массива
-	Screen_Mass(f, n); // выводим на экран массив введеных коэффициентов
+	//cout << "Dimension of the massiv N " << endl;
+	//cout << "n = "; cin >> n;
+	// int* f = Memo_Mass(n); // выделение памяти для массива n
+	Vvod_Mass(arr); // выполняем ввод массива
+	Screen_Mass(arr); // выводим на экран массив введеных коэффициентов
 	cout << "\n";
 
-	// проверка работы функции SredArif на разных входных данных
+	// проверка работы функции Sum_Mass на разных входных данных
 	Test_Sum_Mass();
-	cout << "Summa |a1| + ... + |an| = " << Sum_Mass(f, n) << endl;
+	cout << "Summa |a1| + ... + |an| = " << Sum_Mass(arr) << endl;
 	cout << "\n";
 
 	// выполняем запись массива в файл
-	WriteFile(f, n);
+	WriteFile(arr);
 	// читаем из файла массив и выдаем на консоль
-	int* rd = Memo_Mass(n);
+	vector<double> arr1;
+	arr.resize(n);
 	try
 	{
 		// Заполняем массив rd из файла fmass.txt
 		 // это защищенный блок кода 
 		 // при чтении массива может возникнуть исключение 
-		rd = ReadFile(n);
-		Screen_Mass(rd, n); // выводим на экран массив введеных коэффициентов
+		arr1 = ReadFile(n);
+		Screen_Mass(arr1); // выводим на экран массив введеных коэффициентов
 	}
 	catch (const std::exception& e)
 		// Код, который выполняется при возникновении исключения типа
@@ -64,7 +72,7 @@ int main(int argc, char const* argv[]) //главная функция, вызы
 	{
 		cout << e.what() << endl;
 	}
-	Del_Mass(f); // освобождаем память массива
-	Del_Mass(rd); // освобождаем память массива
+	//Del_Mass(f); // освобождаем память массива
+	//Del_Mass(rd); // освобождаем память массива
 	return 0;
 }
