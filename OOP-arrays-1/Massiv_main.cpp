@@ -42,7 +42,9 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 	// Задаем размерность массива
 	//cout << "Dimension of the massiv N " << endl;
 	//cout << "n = "; cin >> n;
-	// int* f = Memo_Mass(n); // выделение памяти для массива n
+	
+
+
 	Vvod_Mass(arr); // выполняем ввод массива
 	Screen_Mass(arr); // выводим на экран массив введеных коэффициентов
 	cout << "\n";
@@ -54,25 +56,28 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 
 	// выполняем запись массива в файл
 	WriteFile(arr);
+	cout << "\n";
 	// читаем из файла массив и выдаем на консоль
-	vector<double> arr1;
-	arr.resize(n);
-	try
+	string file_name="fmass.txt"; // название файла
+	try   // проверка на исключения
 	{
-		// Заполняем массив rd из файла fmass.txt
-		 // это защищенный блок кода 
-		 // при чтении массива может возникнуть исключение 
-		arr1 = ReadFile(n);
-		Screen_Mass(arr1); // выводим на экран массив введеных коэффициентов
+		// Заполняем массив arr1 из файла fmass.txt
+		// это защищенный блок кода 
+		// при чтении массива может возникнуть исключение 
+		// Находим количество элементов массива из файла
+		unsigned size_1 = SizeFile(file_name);
 	}
-	catch (const std::exception& e)
+	catch (const exception& error) // файл не открыт или пуст
+	{	
 		// Код, который выполняется при возникновении исключения типа
 		// Exception генерируется в блоке try
 		// Зарегистрировать сообщение об ошибке в объекте exception
-	{
-		cout << e.what() << endl;
+		cout << error.what() << endl;
 	}
-	//Del_Mass(f); // освобождаем память массива
-	//Del_Mass(rd); // освобождаем память массива
+	vector<double> arr1;
+	arr1.resize(n); // Задаем размер size
+	arr1 = ReadFile(n);
+	Screen_Mass(arr1); // выводим на экран массив введеных коэффициентов
+	arr.clear();
 	return 0;
 }
