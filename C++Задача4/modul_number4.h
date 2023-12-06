@@ -1,5 +1,22 @@
 // Бурдинская Наталья – Заголовочный файл модуля modul_number4.h
+#include <iostream> // Объявляет объекты cin cout, управляющие чтением из стандартных потоков и записью в них
+#include <iomanip> // стандартный для определения нужного числа манипуляторов setw setprecision
+#include <cmath> // стандартная библиотека с математическими константами и функциями 
+#include <cassert> // для assert
+#include <string>
+// стандартная библиотека содержится в пространстве имён std
+// чтобы каждый раз не использовать std:: при обращении к содержимому
+// этой библиотеки сделаем содержимое std доступным непосредственно
+using namespace std;
+
 //Средняя арифметическая прогрессия
-float sa(float a, float b);
+float SredArif(float a, float b);
+
 //Средняя геометрическая прогрессия
-float sg(float a, float b);
+float SredGeom(float a, float b);
+
+// проверка работы функции SredArif на разных входных данных
+float Test_SredArif();
+
+// проверка работы функции SredGeom на разных входных данных
+float Test_SredGeom();
