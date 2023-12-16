@@ -1,48 +1,48 @@
 /// \file MatrixModul.cpp
-/// \brief cpp-файл модуль MatrixModul.cpp
-/// \brief Класс матрица
-/// \author Бурдинская Наталья ВМК-22
+/// \brief cpp-С„Р°Р№Р» РјРѕРґСѓР»СЊ MatrixModul.cpp
+/// \brief РљР»Р°СЃСЃ РјР°С‚СЂРёС†Р°
+/// \author Р‘СѓСЂРґРёРЅСЃРєР°СЏ РќР°С‚Р°Р»СЊСЏ Р’РњРљ-22
 /// \date 15.11.2023
 
-// вызов заголовочного файла модуля MatrixModul.cpp
+// РІС‹Р·РѕРІ Р·Р°РіРѕР»РѕРІРѕС‡РЅРѕРіРѕ С„Р°Р№Р»Р° РјРѕРґСѓР»СЏ MatrixModul.cpp
 #include "MatrixModul.h"
 
-// Получение матрицы путём удаление id строки и jd столбца
-MatrixClass MatrixClass::Del_Line_Column(MatrixClass MainMatr, int id, int jd) const {
-	MatrixClass result(MainMatr.Get_Line() - 1, MainMatr.Get_Column() - 1);
-	for (int i = 0; i < MainMatr.Get_Line(); i++)
+// РџРѕР»СѓС‡РµРЅРёРµ РјР°С‚СЂРёС†С‹ РїСѓС‚С‘Рј СѓРґР°Р»РµРЅРёРµ id СЃС‚СЂРѕРєРё Рё jd СЃС‚РѕР»Р±С†Р°
+MatrixClass MatrixClass::Del_Line_Column(const MatrixClass* MainMatr, int id, int jd) const {
+	MatrixClass result(MainMatr->Get_Line() - 1, MainMatr->Get_Column() - 1);
+	for (int i = 0; i < MainMatr->Get_Line(); i++)
 	{
-		for (int j = 0; j < MainMatr.Get_Column(); j++)
+		for (int j = 0; j < MainMatr->Get_Column(); j++)
 		{
-			if (i < id && j < jd) { result.Set_Element(i, j, MainMatr.Get_Element(i, j)); };
-			if (i < id && j > jd) { result.Set_Element(i, j - 1, MainMatr.Get_Element(i, j)); };
-			if (i > id && j < jd) { result.Set_Element(i - 1, j, MainMatr.Get_Element(i, j)); };
-			if (i > id && j > jd) { result.Set_Element(i - 1, j - 1, MainMatr.Get_Element(i, j)); };
+			if (i < id && j < jd) { result.Set_Element(i, j, MainMatr->Get_Element(i, j)); };
+			if (i < id && j > jd) { result.Set_Element(i, j - 1, MainMatr->Get_Element(i, j)); };
+			if (i > id && j < jd) { result.Set_Element(i - 1, j, MainMatr->Get_Element(i, j)); };
+			if (i > id && j > jd) { result.Set_Element(i - 1, j - 1, MainMatr->Get_Element(i, j)); };
 		}
 	}
 	return result;
 }
 
-// Проверка того, чтобы строки и столбцы были неотрицательными
+// РџСЂРѕРІРµСЂРєР° С‚РѕРіРѕ, С‡С‚РѕР±С‹ СЃС‚СЂРѕРєРё Рё СЃС‚РѕР»Р±С†С‹ Р±С‹Р»Рё РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹РјРё
 bool MatrixClass::Nonnegative_Line_Column(int line, int column) const {
 	if (line >= 0 && column >= 0) return true;
 	else {
-		throw std::runtime_error("Недопустимые значения для строк и/или столбцов");
+		throw std::runtime_error("РќРµРґРѕРїСѓСЃС‚РёРјС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ СЃС‚СЂРѕРє Рё/РёР»Рё СЃС‚РѕР»Р±С†РѕРІ");
 		return false;
 	}
 }
 
-// Проверка того, чтобы количество строк и столбцов матриц было одинаково
-// (для операторов *=, -=, +=)
+// РџСЂРѕРІРµСЂРєР° С‚РѕРіРѕ, С‡С‚РѕР±С‹ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ РјР°С‚СЂРёС† Р±С‹Р»Рѕ РѕРґРёРЅР°РєРѕРІРѕ
+// (РґР»СЏ РѕРїРµСЂР°С‚РѕСЂРѕРІ *=, -=, +=)
 bool MatrixClass::Line_Equality_Column(const MatrixClass& Matrix) const {
 	if (MatrixVector.size() == Matrix.Get_Line() && MatrixVector[0].size() == Matrix.Get_Column()) return true;
 	else {
-		throw std::runtime_error("Кол-ва строк и столбцов матриц должны быть одинаковы");
+		throw std::runtime_error("РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ РјР°С‚СЂРёС† РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РѕРґРёРЅР°РєРѕРІС‹");
 		return false;
 	}
 }
 
-// Установка новых размеров строк и столбцов
+// РЈСЃС‚Р°РЅРѕРІРєР° РЅРѕРІС‹С… СЂР°Р·РјРµСЂРѕРІ СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ
 void MatrixClass::New_Line_Column(int line, int column) {
 	MatrixVector.resize(line);
 	for (int i = 0; i < MatrixVector.size(); i++)
@@ -51,12 +51,12 @@ void MatrixClass::New_Line_Column(int line, int column) {
 	}
 }
 
-// Конструктор матрицы
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РјР°С‚СЂРёС†С‹
 MatrixClass::MatrixClass() {
 	New_Line_Column(2, 2);
 }
 
-// Конструктор матрицы с параметрами строка и столбец
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РјР°С‚СЂРёС†С‹ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё СЃС‚СЂРѕРєР° Рё СЃС‚РѕР»Р±РµС†
 MatrixClass::MatrixClass(int line, int column) {
 	try {
 		if (Nonnegative_Line_Column(line, column)) {
@@ -69,9 +69,9 @@ MatrixClass::MatrixClass(int line, int column) {
 	}
 }
 
-// геттеры элементов матрицы
-// const т.к. метод не меняет значений полей
-// Операция: получение элемента [n][m] матрицы
+// РіРµС‚С‚РµСЂС‹ СЌР»РµРјРµРЅС‚РѕРІ РјР°С‚СЂРёС†С‹
+// const С‚.Рє. РјРµС‚РѕРґ РЅРµ РјРµРЅСЏРµС‚ Р·РЅР°С‡РµРЅРёР№ РїРѕР»РµР№
+// РћРїРµСЂР°С†РёСЏ: РїРѕР»СѓС‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° [n][m] РјР°С‚СЂРёС†С‹
 float MatrixClass::Get_Element(int n, int m) const {
 	try {
 		if (Nonnegative_Line_Column(n, m)) {
@@ -83,17 +83,17 @@ float MatrixClass::Get_Element(int n, int m) const {
 	}
 }
 
-// Операция: получение количества строк
+// РћРїРµСЂР°С†РёСЏ: РїРѕР»СѓС‡РµРЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚СЂРѕРє
 int MatrixClass::Get_Line() const {
 	return MatrixVector.size();
 }
 
-// Операция: получение количества столбцов
+// РћРїРµСЂР°С†РёСЏ: РїРѕР»СѓС‡РµРЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚РѕР»Р±С†РѕРІ
 int MatrixClass::Get_Column() const {
 	return MatrixVector[0].size();
 }
 
-// Операция: получение матрицы
+// РћРїРµСЂР°С†РёСЏ: РїРѕР»СѓС‡РµРЅРёРµ РјР°С‚СЂРёС†С‹
 void MatrixClass::Get_Matrix() const {
 	cout.precision(4);
 	cout << endl;
@@ -101,14 +101,14 @@ void MatrixClass::Get_Matrix() const {
 	{
 		for (int j = 0; j < MatrixVector[0].size(); j++)
 		{
-			cout << setw(12) << fixed << setprecision(3) << MatrixVector[i][j];
+			cout << setfill(' ') << setw(8) << fixed << setprecision(2) << MatrixVector[i][j];
 		}
 		cout << endl;
 	}
 }
 
-// сеттеры элементов матрицы
-// Операция: ввод количества строк и столбцов
+// СЃРµС‚С‚РµСЂС‹ СЌР»РµРјРµРЅС‚РѕРІ РјР°С‚СЂРёС†С‹
+// РћРїРµСЂР°С†РёСЏ: РІРІРѕРґ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ
 void MatrixClass::Set_Line_Column(int line, int column) {
 	try {
 		if (Nonnegative_Line_Column(line, column)) {
@@ -117,16 +117,15 @@ void MatrixClass::Set_Line_Column(int line, int column) {
 	}
 	catch (const std::exception& e) {
 		cout << e.what() << endl;
-		//new_line_column(2, 2);
 	}
 }
 
-// Операция: ввод количества строк
+// РћРїРµСЂР°С†РёСЏ: РІРІРѕРґ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚СЂРѕРє
 void MatrixClass::Set_Line(int line) {
 	MatrixVector.resize(line);
 }
 
-// Операция: ввод количества столбцов
+// РћРїРµСЂР°С†РёСЏ: РІРІРѕРґ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚РѕР»Р±С†РѕРІ
 void MatrixClass::Set_Column(int column) {
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
@@ -134,7 +133,7 @@ void MatrixClass::Set_Column(int column) {
 	}
 }
 
-// Операция: ввод нового [n][m] элемента матрицы
+// РћРїРµСЂР°С†РёСЏ: РІРІРѕРґ РЅРѕРІРѕРіРѕ [n][m] СЌР»РµРјРµРЅС‚Р° РјР°С‚СЂРёС†С‹
 void MatrixClass::Set_Element(int line, int column, double deft) {
 	try {
 		if (Nonnegative_Line_Column(line, column)) {
@@ -145,7 +144,7 @@ void MatrixClass::Set_Element(int line, int column, double deft) {
 		cout << e.what() << endl;
 	}
 }
-// Операция: заполнение матрицы одним значением deft
+// РћРїРµСЂР°С†РёСЏ: Р·Р°РїРѕР»РЅРµРЅРёРµ РјР°С‚СЂРёС†С‹ РѕРґРЅРёРј Р·РЅР°С‡РµРЅРёРµРј deft
 void MatrixClass::Matrix_Default(double deft) {
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
@@ -156,21 +155,24 @@ void MatrixClass::Matrix_Default(double deft) {
 	}
 }
 
-// Операция: заполнить матрицу случайными значениями от min до max
+// РћРїРµСЂР°С†РёСЏ: Р·Р°РїРѕР»РЅРёС‚СЊ РјР°С‚СЂРёС†Сѓ СЃР»СѓС‡Р°Р№РЅС‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё РѕС‚ min РґРѕ max
 void MatrixClass::Matrix_Random(double min, double max) {
-	for (int i = 0; i < MatrixVector.size(); i++)
+	// Р“РµРЅРµСЂРёСЂСѓРµС‚ СЃР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ, РёСЃРїРѕР»СЊР·СѓСЏ С‚РµРєСѓС‰РµСЋ РґР°С‚Сѓ, РґР»СЏ РЅРµРїСЂРµРґСЃРєР°Р·СѓРµРјРѕСЃС‚Рё СЂРµР·СѓР»СЊС‚Р°С‚Р°
+	srand(time(0)); // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіРµРЅРµСЂР°С‚РѕСЂР° СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР» С‚РµРєСѓС‰РёРј РІСЂРµРјРµРЅРµРј РІ СЃРµРєСѓРЅРґР°С… time
+		for (int i = 0; i < MatrixVector.size(); i++)
 	{
 		for (int j = 0; j < MatrixVector[0].size(); j++)
 		{
-			// целые числа
-			MatrixVector[i][j] = 1.0 * (rand() % 10) * (max - min) + min;
-			// вещественные числа
+			// С†РµР»С‹Рµ С‡РёСЃР»Р°
+			MatrixVector[i][j] = (1.0 * rand() / RAND_MAX * (max - min) + min);
+			//MatrixVector[i][j] = 1.0 * (rand() % 10) * (max - min) + min;
+			// РІРµС‰РµСЃС‚РІРµРЅРЅС‹Рµ С‡РёСЃР»Р°
 			//MatrixVector[i][j] = 1.0 * rand() / RAND_MAX * (max - min) + min;
 		}
 	}
 }
 
-// Операция: сложение матриц 
+// РћРїРµСЂР°С†РёСЏ: СЃР»РѕР¶РµРЅРёРµ РјР°С‚СЂРёС† 
 MatrixClass MatrixClass::operator+ (const MatrixClass& Matrix) const {
 	MatrixClass result(MatrixVector.size(), MatrixVector[0].size());
 	try {
@@ -191,7 +193,7 @@ MatrixClass MatrixClass::operator+ (const MatrixClass& Matrix) const {
 	}
 }
 
-// Операция: сложение матрицы с числом deft
+// РћРїРµСЂР°С†РёСЏ: СЃР»РѕР¶РµРЅРёРµ РјР°С‚СЂРёС†С‹ СЃ С‡РёСЃР»РѕРј deft
 MatrixClass MatrixClass::operator+ (double deft) const {
 	MatrixClass result(MatrixVector.size(), MatrixVector[0].size());
 	for (int i = 0; i < MatrixVector.size(); i++)
@@ -204,7 +206,7 @@ MatrixClass MatrixClass::operator+ (double deft) const {
 	return result;
 }
 
-// Операция: вычитание матриц
+// РћРїРµСЂР°С†РёСЏ: РІС‹С‡РёС‚Р°РЅРёРµ РјР°С‚СЂРёС†
 MatrixClass MatrixClass::operator- (const MatrixClass& Matrix) const {
 	MatrixClass result(MatrixVector.size(), MatrixVector[0].size());
 	try {
@@ -225,7 +227,7 @@ MatrixClass MatrixClass::operator- (const MatrixClass& Matrix) const {
 	}
 }
 
-// Операция: вычитание матрицы с числом deft
+// РћРїРµСЂР°С†РёСЏ: РІС‹С‡РёС‚Р°РЅРёРµ РјР°С‚СЂРёС†С‹ СЃ С‡РёСЃР»РѕРј deft
 MatrixClass MatrixClass::operator- (double deft) const {
 	MatrixClass result(MatrixVector.size(), MatrixVector[0].size());
 	for (int i = 0; i < MatrixVector.size(); i++)
@@ -238,7 +240,7 @@ MatrixClass MatrixClass::operator- (double deft) const {
 	return result;
 }
 
-// Операция: умножение матрицы на число deft
+// РћРїРµСЂР°С†РёСЏ: СѓРјРЅРѕР¶РµРЅРёРµ РјР°С‚СЂРёС†С‹ РЅР° С‡РёСЃР»Рѕ deft
 MatrixClass MatrixClass::operator* (double deft) const {
 	MatrixClass result(MatrixVector.size(), MatrixVector[0].size());
 	for (int i = 0; i < MatrixVector.size(); i++)
@@ -251,15 +253,15 @@ MatrixClass MatrixClass::operator* (double deft) const {
 	return result;
 }
 
-// Операция: умножение матрицы на матрицу
+// РћРїРµСЂР°С†РёСЏ: СѓРјРЅРѕР¶РµРЅРёРµ РјР°С‚СЂРёС†С‹ РЅР° РјР°С‚СЂРёС†Сѓ
 MatrixClass MatrixClass::operator* (const MatrixClass& Matrix) const {
-	MatrixClass result(MatrixVector.size(), MatrixVector[0].size());
+	MatrixClass result(MatrixVector.size(), Matrix.Get_Column());
 	try {
-		if (Line_Equality_Column(Matrix)) {
+		if (MatrixVector[0].size() == Matrix.Get_Line()) {
 			double sum;
 			for (int i = 0; i < MatrixVector.size(); i++)
 			{
-				for (int j = 0; j < MatrixVector[0].size(); j++)
+				for (int j = 0; j < Matrix.Get_Column(); j++)
 				{
 					sum = 0;
 					for (int n = 0; n < MatrixVector[0].size(); n++)
@@ -278,18 +280,18 @@ MatrixClass MatrixClass::operator* (const MatrixClass& Matrix) const {
 	}
 }
 
-// Операция: собственное умножение матрицы на матрицу
+// РћРїРµСЂР°С†РёСЏ: СЃРѕР±СЃС‚РІРµРЅРЅРѕРµ СѓРјРЅРѕР¶РµРЅРёРµ РјР°С‚СЂРёС†С‹ РЅР° РјР°С‚СЂРёС†Сѓ
 void MatrixClass::operator*= (const MatrixClass& Matrix) {
-	MatrixClass between(MatrixVector.size(), MatrixVector[0].size());
-	MatrixClass result(MatrixVector.size(), MatrixVector[0].size());
+	MatrixClass Betta(MatrixVector.size(), MatrixVector[0].size());
+	MatrixClass result(MatrixVector.size(), Matrix.Get_Column());
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
 		for (int j = 0; j < MatrixVector[0].size(); j++)
 		{
-			between.Set_Element(i, j, MatrixVector[i][j]);
+			Betta.Set_Element(i, j, MatrixVector[i][j]);
 		}
 	}
-	result = between * Matrix;
+	result = Betta * Matrix;
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
 		for (int j = 0; j < MatrixVector[0].size(); j++)
@@ -297,11 +299,11 @@ void MatrixClass::operator*= (const MatrixClass& Matrix) {
 			MatrixVector[i][j] = result.Get_Element(i, j);
 		}
 	}
-	between.~MatrixClass();
+	Betta.~MatrixClass();
 	result.~MatrixClass();
 }
 
-// Операция: собственное умножение матрицы на число deft
+// РћРїРµСЂР°С†РёСЏ: СЃРѕР±СЃС‚РІРµРЅРЅРѕРµ СѓРјРЅРѕР¶РµРЅРёРµ РјР°С‚СЂРёС†С‹ РЅР° С‡РёСЃР»Рѕ deft
 void MatrixClass::operator*= (double deft) {
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
@@ -312,7 +314,7 @@ void MatrixClass::operator*= (double deft) {
 	}
 }
 
-// Операция: собственное вычитание матриц
+// РћРїРµСЂР°С†РёСЏ: СЃРѕР±СЃС‚РІРµРЅРЅРѕРµ РІС‹С‡РёС‚Р°РЅРёРµ РјР°С‚СЂРёС†
 void MatrixClass::operator-= (const MatrixClass& Matrix) {
 	try {
 		if (Line_Equality_Column(Matrix)) {
@@ -331,7 +333,7 @@ void MatrixClass::operator-= (const MatrixClass& Matrix) {
 	}
 }
 
-// Операция: собственное вычитание числа deft из матрицы
+// РћРїРµСЂР°С†РёСЏ: СЃРѕР±СЃС‚РІРµРЅРЅРѕРµ РІС‹С‡РёС‚Р°РЅРёРµ С‡РёСЃР»Р° deft РёР· РјР°С‚СЂРёС†С‹
 void MatrixClass::operator-= (double deft) {
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
@@ -342,8 +344,8 @@ void MatrixClass::operator-= (double deft) {
 	}
 }
 
-// Операция: собственное сложение матриц
-void MatrixClass::operator+= (MatrixClass Matrix) {
+// РћРїРµСЂР°С†РёСЏ: СЃРѕР±СЃС‚РІРµРЅРЅРѕРµ СЃР»РѕР¶РµРЅРёРµ РјР°С‚СЂРёС†
+void MatrixClass::operator+= (const MatrixClass& Matrix) {
 	try {
 		if (Line_Equality_Column(Matrix)) {
 			for (int i = 0; i < MatrixVector.size(); i++)
@@ -361,7 +363,7 @@ void MatrixClass::operator+= (MatrixClass Matrix) {
 	}
 }
 
-// Операция: собственное сложение числа deft с матрицей
+// РћРїРµСЂР°С†РёСЏ: СЃРѕР±СЃС‚РІРµРЅРЅРѕРµ СЃР»РѕР¶РµРЅРёРµ С‡РёСЃР»Р° deft СЃ РјР°С‚СЂРёС†РµР№
 void MatrixClass::operator+= (double deft) {
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
@@ -372,8 +374,8 @@ void MatrixClass::operator+= (double deft) {
 	}
 }
 
-// Операция: транспонирование матрицы
-MatrixClass MatrixClass::Trans_Matrix() {
+// РћРїРµСЂР°С†РёСЏ: С‚СЂР°РЅСЃРїРѕРЅРёСЂРѕРІР°РЅРёРµ РјР°С‚СЂРёС†С‹
+MatrixClass MatrixClass::Trans_Matrix() const {
 	MatrixClass result(MatrixVector[0].size(), MatrixVector.size());
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
@@ -385,29 +387,32 @@ MatrixClass MatrixClass::Trans_Matrix() {
 	return result;
 }
 
-// Операция: диагональная матрица
-void MatrixClass::Diagonal_Matrix() {
+// РћРїРµСЂР°С†РёСЏ: РґРёР°РіРѕРЅР°Р»СЊРЅР°СЏ РјР°С‚СЂРёС†Р°
+MatrixClass MatrixClass::Diagonal_Matrix() const {
+
+	MatrixClass result(MatrixVector[0].size(), MatrixVector.size());
 	for (int i = 0; i < MatrixVector.size(); i++)
 	{
 		for (int j = 0; j < MatrixVector[0].size(); j++)
 		{
-			if (!(i == j)) MatrixVector[i][j] = 0;
+			if (i == j) result.Set_Element(i, j, MatrixVector[i][j]);
 		}
 	}
+	return result;
 }
 
-// Операция: поиск определителя матрицы и ранга
-double MatrixClass::Determinant(MatrixClass Matr, int rang) const {
-	if (!(Matr.Get_Line() == Matr.Get_Column())) cout << "Для поиска определителя матрица должны быть квадратной";
+// РћРїРµСЂР°С†РёСЏ: РїРѕРёСЃРє РѕРїСЂРµРґРµР»РёС‚РµР»СЏ РјР°С‚СЂРёС†С‹ Рё СЂР°РЅРіР°
+double MatrixClass::Determinant(int rang) const {
+	if (!(this->Get_Line() == this->Get_Column())) cout << "Р”Р»СЏ РїРѕРёСЃРєР° РѕРїСЂРµРґРµР»РёС‚РµР»СЏ РјР°С‚СЂРёС†Р° РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РєРІР°РґСЂР°С‚РЅРѕР№";
 	else {
-		if (rang == 1) return Matr.Get_Element(0, 0);
-		else if (rang == 2) return Matr.Get_Element(0, 0) * Matr.Get_Element(1, 1) - Matr.Get_Element(0, 1) * Matr.Get_Element(1, 0);
+		if (rang == 1) return this->Get_Element(0, 0);
+		else if (rang == 2) return this->Get_Element(0, 0) * this->Get_Element(1, 1) - this->Get_Element(0, 1) * this->Get_Element(1, 0);
 		else {
 			double Det = 0;
 			for (int i = 0; i < rang; i++)
 			{
-				MatrixClass Between = Del_Line_Column(Matr, 0, i);
-				Det = Det + pow(-1, i + 1 + 1) * Matr.Get_Element(0, i) * Determinant(Between, rang - 1);
+				MatrixClass Between = Del_Line_Column(this, 0, i);
+				Det = Det + pow(-1, i + 1 + 1) * this->Get_Element(0, i) * Between.Determinant(rang - 1);
 				Between.~MatrixClass();
 			}
 			return Det;
@@ -416,27 +421,27 @@ double MatrixClass::Determinant(MatrixClass Matr, int rang) const {
 	}
 }
 
-// Операция: построение обратной матрицы
-MatrixClass MatrixClass::Inverse_Matrix(MatrixClass Matr) const {
-	if (!(MatrixVector.size() == MatrixVector[0].size())) cout << "Для поиска обратной матрицы, матрица должна быть квадратной";
-	else if (Determinant(Matr, Matr.Get_Line()) == 0) cout << "Матрица не имеет обратную, определитель = 0";
+// РћРїРµСЂР°С†РёСЏ: РїРѕСЃС‚СЂРѕРµРЅРёРµ РѕР±СЂР°С‚РЅРѕР№ РјР°С‚СЂРёС†С‹
+MatrixClass MatrixClass::Inverse_Matrix() const {
+	if (!(MatrixVector.size() == MatrixVector[0].size())) cout << "Р”Р»СЏ РїРѕРёСЃРєР° РѕР±СЂР°С‚РЅРѕР№ РјР°С‚СЂРёС†С‹, РјР°С‚СЂРёС†Р° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РєРІР°РґСЂР°С‚РЅРѕР№";
+	else if (Determinant(this->Get_Line()) == 0) cout << "РњР°С‚СЂРёС†Р° РЅРµ РёРјРµРµС‚ РѕР±СЂР°С‚РЅСѓСЋ, РѕРїСЂРµРґРµР»РёС‚РµР»СЊ = 0";
 	else {
-		MatrixClass Minor(Matr.Get_Line(), Matr.Get_Line());
-		for (int i = 0; i < Matr.Get_Line(); i++)
+		MatrixClass Obrat(this->Get_Line(), this->Get_Line());
+		for (int i = 0; i < this->Get_Line(); i++)
 		{
-			for (int j = 0; j < Matr.Get_Column(); j++)
+			for (int j = 0; j < this->Get_Column(); j++)
 			{
-				MatrixClass Between = Del_Line_Column(Matr, i, j);
-				Minor.Set_Element(i, j, Determinant(Between, Between.Get_Column()) * pow(-1, i + j + 2));
-				Between.~MatrixClass();
+				MatrixClass Betta = Del_Line_Column(this, i, j);
+				Obrat.Set_Element(i, j, Betta.Determinant(Betta.Get_Column()) * pow(-1, i + j + 2));
+				Betta.~MatrixClass();
 			}
 		}
-		Minor = Minor.Trans_Matrix();
-		return Minor * (1 / Determinant(Matr, Matr.Get_Line()));
+		Obrat = Obrat.Trans_Matrix();
+		return Obrat * (1 / Determinant(this->Get_Line()));
 	}
 }
 
-// Деструктор класса матрица
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РјР°С‚СЂРёС†Р°
 MatrixClass::~MatrixClass() {
 	MatrixVector.clear();
 }
