@@ -4,7 +4,27 @@
 <div id="header" align="center">
   <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100"/>
 </div>
+
+## V 2.17.12.2023 Прямоугольник (изменения)
+
+- Убрала из структуры класса прямоугольник сохраняемые поля
  
+//double a, b; // стороны прямоугольника
+
+// double d; // диагональ прямоугольника
+
+// double angle_a; // угол прямоугольника
+
+// double x4, y4; // координаты x и y четвертой точки
+
+в связи с этим был немного изменен код
+
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/47ad4c53-71c5-4943-bc5e-0ed12913706c)
+
+- добавлены во все тестовые процедуры проверки assert
+- Out
+
+  
 ## UML Прямоугольник
 
 ![image](https://github.com/BurdinskayaNV/Struct-rectangle/assets/148595309/3c9cd464-3f83-4b5b-9d2a-c65bbe8508dd)
