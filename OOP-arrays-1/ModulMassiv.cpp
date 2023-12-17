@@ -51,6 +51,54 @@ namespace NamespaceMassiv
 		return sum; // возврат суммы sum из функции Sum_Mass
 	}
 
+	//---ввод размера массива (для try-catch)
+	int ReadArrLength() {
+		int len;
+		cin >> len;
+		if ((len <= 0)) {
+			throw length_error("(len <= 0) || (len >= 32769)");
+		}
+		else {
+			return len;
+		}
+	}
+
+	//---ввод имени файла для ввода и вывода массива (для try-catch)
+	string ReadFileName() {
+		string file_name;
+		;
+		char rep[]{ '*', '/', ':', '?', '"', '<', '>', '|' };
+		cin >> file_name;
+		for (int i = 0; i < 8; i++) {
+			if (file_name.find(rep[i]) != file_name.npos) {
+				throw invalid_argument("Некорректное имя файла");
+			}
+			file_name = file_name + ".txt";
+			return file_name;
+		}
+	}
+
+	//---функция поиска количества элементов массива в файле
+	unsigned SizeFile(const string& file_name)
+	{
+		unsigned res = 0; // Переменная для счета количества строк
+		string line; // Строка, с помощью которой ищем количество строк
+		ifstream file(file_name); // Открытие файла 
+		if (!file.is_open()) // Если не открыт файл
+		{
+			throw runtime_error("File not found"); // Если что, то в ошибку
+		}
+		// Цикл счёта количества строк -> количества элементов массива
+		while (getline(file, line))
+		{
+			res++; // Цикл будет жить, пока getline делает переходы
+		}
+		file.close(); // Закрыть файл
+		if (res == 0) // Ошибка, если файл пуст
+			throw runtime_error("Array not found in file - file is empty");
+		return res;
+	}
+
 	//---проверка работы функции Sum_Mass на разных входных данных
 	// в саму процедуру нет входящих параметров
 	void Test_Sum_Mass()
@@ -141,26 +189,5 @@ namespace NamespaceFile
 		Fin.close(); /// Функция fclose() закрывает поток файла
 		cout << "Add. End of recording" << endl;
 		cout << "\n";
-	}
-
-	//---функция поиска количества элементов массива в файле
-	unsigned SizeFile(const string& file_name)
-	{
-		unsigned res = 0; // Переменная для счета количества строк
-		string line; // Строка, с помощью которой ищем количество строк
-		ifstream file(file_name); // Открытие файла 
-		if (!file.is_open()) // Если не открыт файл
-		{
-			throw runtime_error("File not found"); // Если что, то в ошибку
-		}
-		// Цикл счёта количества строк -> количества элементов массива
-		while (getline(file, line))
-		{
-			res++; // Цикл будет жить, пока getline делает переходы
-		}
-		file.close(); // Закрыть файл
-		if (res == 0) // Ошибка, если файл пуст
-			throw runtime_error("Array not found in file - file is empty");
-		return res;
 	}
 }
