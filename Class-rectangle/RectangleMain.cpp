@@ -1,4 +1,4 @@
-﻿/// \file RectangleMain.cpp
+/// \file RectangleMain.cpp
 /// \brief тело основной программы
 /// \brief Геометрическая фигура - прямоугольник
 /// \brief Задание координат точек вершин прямоугольника
@@ -27,7 +27,7 @@
 #include "RectangleModule.h"
 
 //главная функция, вызываемая при запуске программы
-int main(int argc, char const* argv[])
+int main()
 //int main()
 {
 	// Rect - экземпляр класса RectangleClass
@@ -38,6 +38,12 @@ int main(int argc, char const* argv[])
 	setlocale(LC_ALL, "russian");
 	// вызвать в программе один раз, перед выводом чисел.
 	cout << fixed << setprecision(1); // один знак после запятой
+
+	// Тест с assert-ами, проверяет все функции работы с классом
+	cout << "======================================================" << endl;
+	Test_Asserts();
+	cout << "======================================================" << endl;
+	cout << endl;
 
 	// Производим тестирование кода на Примере 1
 	// Пример 1 - прямоугольник тестирование основного функционала
@@ -90,11 +96,11 @@ int main(int argc, char const* argv[])
 	{
 		cout << "======================================================" << endl;
 		// введите координаты точек прямоугольника
-		cout << "Enter the coordinates of the points of your Rectangle..." << endl;
+		cout << "Введите координаты точек ващего прямоугольника..." << endl;
 		double tm;
 		for (unsigned i = 0; i < 3; i++)
 		{
-			cout << "Enter coordinate x" << i + 1 << ": "; // Введите координаты Х
+			cout << "Введите координаты Х " << i + 1 << " : "; // Введите координаты Х
 			cin >> tm;
 			switch (i)
 			{
@@ -102,7 +108,7 @@ int main(int argc, char const* argv[])
 			case 1: Rect.set_x2(tm); break;
 			case 2: Rect.set_x3(tm); break;
 			}
-			cout << "Enter coordinate y" << i + 1 << ": "; // Введите координаты Y
+			cout << "Введите координаты Y " << i + 1 << " : "; // Введите координаты Y
 			cin >> tm;
 			switch (i)
 			{
@@ -114,47 +120,52 @@ int main(int argc, char const* argv[])
 		cout << "======================================================" << endl;
 
 		char ask1; // Переменная вопроса 1 ДА или 0 НЕТ "Начнем менять координаты? 1/0"
-		cout << "Start changing coordinates? 1/0: ";
+		cout << "Начнем менять координаты ? 1-ДА / 0-НЕТ : ";
 		cin >> ask1;
 		while (ask1 == '1')
 		{   // Введите номер координаты изменения (i = 1,2,3)
-			cout << "Enter number coordinate (1,2,3) : ";
+			cout << "Введите номер координаты изменения (i = 1,2,3) : ";
 			char ask;
 			cin >> ask;
 			switch (ask)
 			{
-			case '1': {cout << "New x = "; cin >> tm; Rect.set_x1(tm);
-				cout << "New y = "; cin >> tm; Rect.set_y1(tm); break; }
-			case '2': {cout << "New x = "; cin >> tm; Rect.set_x2(tm);
-				cout << "New y = "; cin >> tm; Rect.set_y2(tm); break; }
-			case '3': {cout << "New x = "; cin >> tm; Rect.set_x3(tm);
-				cout << "New y = "; cin >> tm; Rect.set_y3(tm); break; }
+			case '1': {cout << "Новая Х = "; cin >> tm; Rect.set_x1(tm);
+				cout << "Новая У = "; cin >> tm; Rect.set_y1(tm); break; }
+			case '2': {cout << "Новая Х = "; cin >> tm; Rect.set_x2(tm);
+				cout << "Новая У = "; cin >> tm; Rect.set_y2(tm); break; }
+			case '3': {cout << "Новая Х = "; cin >> tm; Rect.set_x3(tm);
+				cout << "Новая У = "; cin >> tm; Rect.set_y3(tm); break; }
 			}
-			cout << "New coordinates:" << endl; // новые координаты
+			cout << "Новые координаты:" << endl; // новые координаты
 			cout << "x1 = " << Rect.get_x1() << " y1 = " << Rect.get_y1() << endl;
 			cout << "x2 = " << Rect.get_x2() << " y2 = " << Rect.get_y2() << endl;
 			cout << "x3 = " << Rect.get_x3() << " y3 = " << Rect.get_y3() << endl;
 
-			cout << "Continue changing? 1/0: "; // для продолжения изменения введите 1 ДА или 0 НЕТ
+			cout << "Продолжить изменения? 1-ДА / 0-НЕТ : "; // для продолжения изменения введите 1 ДА или 0 НЕТ
 			cin >> ask1;
 		}
 
 		//Находим угол. Если он прямой, тогда косинус угла равен нулю
-		Rect.angle_a = Rect.AngleRectangle();
-
+		double angle_a = Rect.AngleRectangle();
 		//Находим длины сторон а, b и диагонали d 
-		Rect.a = Rect.SideRectangleA();
-		Rect.b = Rect.SideRectangleB();
-		Rect.d = Rect.DiagonalRectangle();
-
+		double a = Rect.SideRectangleA();
+		double b = Rect.SideRectangleB();
+		double d = Rect.DiagonalRectangle();
 		//Находим Нахождение координаты X и Y четвертой точки прямоугольника 
-		Rect.x4 = Rect.СoordinateX4();
-		Rect.y4 = Rect.СoordinateY4();
-
+		double x4 = Rect.СoordinateX4();
+		double y4 = Rect.СoordinateY4();
 		Rect.RectangleType(); // определяем тип прямоугольника
-		cout << Rect.OutputResults(); // выводим результат как строку - string
+
+		try {
+			string str_exit = Rect.OutputResults();
+			cout << str_exit << endl; // выводим результат как строку - string
+		}
+		catch (const std::invalid_argument inval) { // Некорректный аргумент
+			cout << inval.what() << endl;
+		}
+
 		cout << "======================================================" << endl;
-		cout << "Start again? 1/0: "; // Начни сначала 1 ДА, 0 НЕТ
+		cout << "Начать сначала? 1-ДА / 0-НЕТ : "; // Начни сначала 1 ДА, 0 НЕТ
 		cin >> stop; // вводим поле stop 1 ДА или 0 НЕТ
 	}
 }
