@@ -157,7 +157,7 @@ int main()
 		Rect.RectangleType(); // определяем тип прямоугольника
 
 		try {
-			string str_exit = Rect.OutputResults();
+			string str_exit = Rect.RefundResults();
 			cout << str_exit << endl; // выводим результат как строку - string
 		}
 		catch (const std::invalid_argument inval) { // Некорректный аргумент
@@ -169,3 +169,4 @@ int main()
 		cin >> stop; // вводим поле stop 1 ДА или 0 НЕТ
 	}
 }
+
