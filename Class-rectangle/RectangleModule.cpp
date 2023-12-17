@@ -160,7 +160,7 @@ void RectangleClass::RectangleType()
 }
 
 // Операция: Вывод результатов - метод to string
-string RectangleClass::OutputResults() const
+string RectangleClass::RefundResults() const
 {
 	double a = SideRectangleA();
 	double b = SideRectangleB();
@@ -285,9 +285,9 @@ void Test_RectangleClass3()
 	cout << "Тест RectangleClass Пример 3 - выполнен успешно OK" << endl;
 	RectangleClass* TestM = new RectangleClass(0, 0, 4, 0, 0, 4);
 	cout << "Длина стороны A = " << TestM->SideRectangleA();
-	cout << "	Длина стороны В = " << TestM->SideRectangleB();
-	cout << "	COS угла прямоугольника = " << TestM->AngleRectangle() << endl;
-	cout << "Площадь = " << TestM->SquareXY() << endl;
+	cout << "	Длина стороны В = " << TestM->SideRectangleB() << endl;
+	cout << "COS угла прямоугольника = " << TestM->AngleRectangle();
+	cout << "	Площадь = " << TestM->SquareXY() << endl;
 	delete TestM;
 }
 
