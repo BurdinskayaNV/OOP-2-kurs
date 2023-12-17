@@ -78,6 +78,15 @@ namespace NamespaceMassiv
 		return sum; // возврат суммы sum из функции Sum_Mass
 	}
 
+	//---ввод размера массива (для try-catch)
+	int ReadArrLength();
+
+	//---ввод имени файла для ввода и вывода массива (для try-catch)
+	string ReadFileName();
+
+	//---функция поиска количества элементов массива в файле
+	unsigned SizeFile(const string& file_name);
+
 	//---проверка работы функции Sum_Mass на разных входных данных
 	// в саму процедуру нет входящих параметров
 	void Test_Sum_Mass();
@@ -129,7 +138,4 @@ namespace NamespaceFile
 		cout << "Add. End of recording" << endl;
 		cout << "\n";
 	}
-
-	//---функция поиска количества элементов массива в файле
-	unsigned SizeFile(const string& file_name);
 }
