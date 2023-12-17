@@ -78,7 +78,7 @@ public:
 	// Операция: Определить вид прямоугольника
 	void RectangleType();
 	// Операция: Вывод результатов - метод to string
-	string OutputResults() const;
+	string RefundResults() const;
 };
 //---проверка работы кода функций с классом RectangleClass
 // в саму процедуру нет вход¤щих параметров
@@ -108,3 +108,4 @@ void Test_RectangleClass4();
 void Test_RectangleClass5();
 // Тест с assert-ами, проверяет все функции работы с классом
 void Test_Asserts();
+
