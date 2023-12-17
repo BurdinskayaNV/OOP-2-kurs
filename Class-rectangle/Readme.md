@@ -22,9 +22,12 @@
 ![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/47ad4c53-71c5-4943-bc5e-0ed12913706c)
 
 - добавлены во все тестовые процедуры проверки assert
-- Out
+- Для процедуры OutputResults() с возвращаемой строковой переменной, выполнена проверка try/catch на Некорректный аргумент выхода
 
-  
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/355a1bd2-af84-4b99-bdae-5dcad5bd8350)
+
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/d7fa1ae1-6a2a-4d59-84ff-b8abbcf3f27e)
+
 ## UML Прямоугольник
 
 ![image](https://github.com/BurdinskayaNV/Struct-rectangle/assets/148595309/3c9cd464-3f83-4b5b-9d2a-c65bbe8508dd)
