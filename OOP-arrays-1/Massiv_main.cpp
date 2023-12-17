@@ -35,16 +35,38 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 	setlocale(LC_ALL, "RUSSIAN");
 	// Аргументы командной строки cmd arg для функции main
 	// argv[0] - имя файла Massiv_main.exe
-	// значит начинаем argv[1]	
-	int n = stoi(argv[1]);
-	vector<double> arr;
-	arr.resize(n);
+	// значит начинаем argv[1] и argv[2] 
+	// в нашем случае argc = 3
+	// (argv[0] имя самого проекта, argv[1] размерность массива и argv[2] имя файла для ввода и сохранения данных)
+	if (argc == 3) {
+		int n = stoi(argv[1]); // преобразовать строку в int 
+		string file_name = argv[2];
+	}
+	else { //блок try-catch
+		cout << "Number of array elements" << endl;
+		try {
+			int n = ReadArrLength(); // отсутствует argv[1] или не переведется из стоки в int
+		}
+		catch (const std::length_error err) {   
+			cout << err.what() << endl; // выводим сообщение об ошибке
+		}
+		cout << "Input filename:" << endl;
+		try {
+			string file_name = ReadFileName(); // отсутствует argv[2] или некорректный ввод имени файла
+		}
+		catch (const std::invalid_argument inval) {//ловим исключение
+			cout << inval.what() << endl;
+		}
+	}
+
+	int n = stoi(argv[1]); // преобразовать строку в int 
+	vector<double> arr; // описываем массив как вектор
+	arr.resize(n); // даем ему размерность n из переданного аргумента argv[1]
+
 	// Задаем размерность массива
 	//cout << "Dimension of the massiv N " << endl;
 	//cout << "n = "; cin >> n;
 	
-
-
 	Vvod_Mass(arr); // выполняем ввод массива
 	Screen_Mass(arr); // выводим на экран массив введеных коэффициентов
 	cout << "\n";
@@ -58,7 +80,7 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 	WriteFile(arr);
 	cout << "\n";
 	// читаем из файла массив и выдаем на консоль
-	string file_name="fmass.txt"; // название файла
+	string file_name = argv[2]; // название файла
 	try   // проверка на исключения
 	{
 		// Заполняем массив arr1 из файла fmass.txt
