@@ -82,23 +82,25 @@ double  RectangleClass::AngleRectangle() const
 // Операция: Нахождение координаты X четвертой точки прямоугольника
 double RectangleClass::СoordinateX4() const
 {
+	double angle_a = AngleRectangle();
 	// если угол при вершине (x1,y1) равен 90 градусов
 	// значит косинус 90 градусов 0
 	if (angle_a == 0)
 		return x1 + (x2 - x1) + (x3 - x1);
 	else
-		cout << "Rectangle type : Other" << endl;
+		cout << "Тип прямоугольника : Другие" << endl;
 }
 
 // Операция: Нахождение координаты Y четвертой точки прямоугольника
 double RectangleClass::СoordinateY4() const
 {
+	double angle_a = AngleRectangle();
 	// если угол при вершине (x1,y1) равен 90 градусов
 	// значит косинус 90 градусов 0
 	if (angle_a == 0)
 		return y1 + (y2 - y1) + (y3 - y1);
 	else
-		cout << "Rectangle type : Other" << endl;
+		cout << "Тип прямоугольника : Другие" << endl;
 }
 
 // Операция: Нахождение длины диагонали прямоугольника через координаты
@@ -111,12 +113,16 @@ double RectangleClass::DiagonalRectangle() const
 // Операция: Расчет периметра P прямоугольника через длины сторон
 double RectangleClass::PerimeterAB() const
 {
+	double a = SideRectangleA();
+	double b = SideRectangleB();
 	return 2 * a + 2 * b;
 }
 
 // Операция: Расчет площади S прямоугольника через длины сторон
 double RectangleClass::SquareAB() const
 {
+	double a = SideRectangleA();
+	double b = SideRectangleB();
 	return a * b;
 }
 
@@ -135,6 +141,9 @@ double RectangleClass::SquareXY() const
 // Операция: Определить вид прямоугольника
 void RectangleClass::RectangleType()
 {
+	double a = SideRectangleA();
+	double b = SideRectangleB();
+	double angle_a = AngleRectangle();
 	bool Okey = false; // если нашли фигуру, чтобы не попасть в ложное условие
 	if ((a == b) && (angle_a == 0))
 	{
@@ -153,17 +162,23 @@ void RectangleClass::RectangleType()
 // Операция: Вывод результатов - метод to string
 string RectangleClass::OutputResults() const
 {
-	string ss = "Other";  		//разбиваем перечислимый тип на строки
+	double a = SideRectangleA();
+	double b = SideRectangleB();
+	double angle_a = AngleRectangle();
+	double d = DiagonalRectangle();
+	double x4 = СoordinateX4();
+	double y4 = СoordinateY4();
+	string ss = "Другой";  		//разбиваем перечислимый тип на строки
 	if (type == RecType::Sqare)
-		ss = "Sqare";
+	   ss = "Квадрат";
 	if (type == RecType::Rectangle)
-		ss = "Rectangle";
-	string s = "Length side a = " + to_string(a) + "\n" + "Length side b = " + to_string(b) + "\n"
-		+ "Length Diagonal = " + to_string(d) + "\n"
-		+ "COS Angle Rectangle = " + to_string(angle_a) + "\n" + "It's a " + ss + "\n"
-		+ "Сoordinates 4 point = (" + to_string(x4) + "," + to_string(y4) + ")" + "\n"
-		+ "Perimeter = " + to_string(PerimeterAB()) + "\n" + "Square = " + to_string(SquareAB()) + "\n";
-	return s;
+	   ss = "Прямоугольник";
+	string s = "Длина стороны А = " + to_string(a) + "\n" + "Длина стороны В = " + to_string(b) + "\n"
+    + "Длина диагонали = " + to_string(d) + "\n"
+    + "COS угла прямоугольника = " + to_string(angle_a) + "\n" + "Это " + ss + "\n"
+    + "Координаты 4 точки = (" + to_string(x4) + "," + to_string(y4) + ")" + "\n"
+    + "Периметр = " + to_string(PerimeterAB()) + "\n" + "Площадь = " + to_string(SquareAB()) + "\n";
+    return s;
 }
 
 // Пример 1 - прямоугольник тестирование основного функционала
@@ -180,22 +195,21 @@ void Test_RectangleClass1()
 		Test.set_x2(4);			Test.set_y2(1);
 		Test.set_x3(1);			Test.set_y3(3);
 	}
+	double a = Test.SideRectangleA();
+	double b = Test.SideRectangleB();
+	assert(a == 3.0);
+	assert(b == 2.0);
 
-	Test.a = Test.SideRectangleA();
-	Test.b = Test.SideRectangleB();
-	assert(Test.a == 3.0);
-	assert(Test.b == 2.0);
+	double angle_a = Test.AngleRectangle();
+	assert(angle_a == 0);
 
-	Test.angle_a = Test.AngleRectangle();
-	assert(Test.angle_a == 0);
+	double d = Test.DiagonalRectangle();
+	assert(d > 3.5);
 
-	Test.d = Test.DiagonalRectangle();
-	assert(Test.d > 3.5);
-
-	Test.x4 = Test.СoordinateX4();
-	assert(Test.x4 == 4);
-	Test.y4 = Test.СoordinateY4();
-	assert(Test.y4 == 3);
+	double x4 = Test.СoordinateX4();
+	assert(x4 == 4);
+	double y4 = Test.СoordinateY4();
+	assert(y4 == 3);
 
 	Test.RectangleType();
 	assert(Test.type == 1);
@@ -204,16 +218,16 @@ void Test_RectangleClass1()
 	assert(Test.SquareAB() == 6.00);
 	assert(Test.PerimeterXY() == 10.00);
 	assert(Test.SquareXY() == 6.00);
-	cout << "Primer 1:" << endl;
-	cout << "Test_RectangleClass Primer 1 - successfully OK" << endl;
-	cout << "Length A = " << Test.a;
-	cout << "	Length В = " << Test.b << endl;
-	cout << "Angle А = " << Test.angle_a;
-	cout << "	Diagonal D = " << Test.d << endl;
-	cout << "Сoordinate X4 = " << Test.x4;
-	cout << "	Сoordinate Y4 = " << Test.y4 << endl;
-	cout << "Perimeter = " << Test.PerimeterAB();
-	cout << "	Square = " << Test.SquareAB() << endl;
+	cout << "Пример 1:" << endl;
+	cout << "Тест RectangleClass Пример 1 - выполнен успешно OK" << endl;
+	cout << "Длина стороны A = " << a;
+	cout << "	Длина стороны В = " << b << endl;
+	cout << "Угол А = " << angle_a;
+	cout << "	Диагональ D = " << d << endl;
+	cout << "Координата X4 = " << x4;
+	cout << "	Координата Y4 = " << y4 << endl;
+	cout << "Периметр = " << Test.PerimeterAB();
+	cout << "	Площадь = " << Test.SquareAB() << endl;
 	// Затем поменять координаты на (1,1) (3,2) (0,3)
 	RectangleClass Test1;
 	{
@@ -221,12 +235,12 @@ void Test_RectangleClass1()
 		Test1.set_x2(3);			Test1.set_y2(2);
 		Test1.set_x3(0);			Test1.set_y3(3);
 	}
-	Test1.angle_a = Test1.AngleRectangle();
+	angle_a = Test1.AngleRectangle();
 
-	cout << "New Сoordinate X4 = " << Test1.СoordinateX4();
-	cout << "	New Сoordinate Y4 = " << Test1.СoordinateY4() << endl;
-	cout << "New Perimeter = " << Test1.PerimeterXY();
-	cout << "	New Square = " << Test1.SquareXY() << endl;
+	cout << "Новая координата X4 = " << Test1.СoordinateX4();
+	cout << "	Новая координата Y4 = " << Test1.СoordinateY4() << endl;
+	cout << "Новый периметер = " << Test1.PerimeterXY();
+	cout << "	Новая площадь = " << Test1.SquareXY() << endl;
 }
 
 // Пример 2 - прямоугольник статистический массив
@@ -239,27 +253,27 @@ void Test_RectangleClass2()
 		RectangleClass(1, 1, 4, 1, 1, 3), // 10 прямоугольник
 		RectangleClass(1, 2, 3, 1, 1, 5)  // не прямоугольник
 	};
-	cout << "Primer 2:" << endl;
-	cout << "Test_RectangleClass Primer 2 - successfully OK" << endl;
+	cout << "Пример 2:" << endl;
+	cout << "Тест RectangleClass Пример 2 - выполнен успешно OK" << endl;
 	double summ = 0;
 	string ss = "";
 	// находим сумму периметров
 	for (int i = 0; i < 3; i++)
 	{
-		Tests[i].angle_a = Tests[i].AngleRectangle();
+		double angle_a = Tests[i].AngleRectangle();
 		Tests[i].RectangleType();
-		if (Tests[i].type == 0)	ss = "Rectangle";
-		if (Tests[i].type == 1)	ss = "Rectangle";
-		if (Tests[i].type == 2)	ss = "Other";
-		cout << "Rectangle Type = " << ss << endl;
+		if (Tests[i].type == 0)	ss = "Квадрат";
+		if (Tests[i].type == 1)	ss = "Прямоугольник";
+		if (Tests[i].type == 2)	ss = "Другой";
+		cout << "Тип прямоугольника = " << ss << endl;
 		if ((Tests[i].type == 0) || (Tests[i].type == 1))
 		{
 			summ = summ + Tests[i].PerimeterXY();
-			cout << "Perimeter " << i + 1 << " Rectangle " << "= " << Tests[i].PerimeterXY() << endl;
+			cout << "Периметр " << i + 1 << " Прямоугольник " << "= " << Tests[i].PerimeterXY() << endl;
 		}
 		ss = "";
 	}
-	cout << "Summ = " << summ << endl;
+	cout << "Сумма периметров прямоугольников = " << summ << endl;
 }
 
 // Пример 3 - прямоугольник динамический объект по умолчанию
@@ -267,13 +281,13 @@ void Test_RectangleClass2()
 // Найти площадь прямоугольника
 void Test_RectangleClass3()
 {
-	cout << "Primer 3:" << endl;
-	cout << "Test_RectangleClass Primer 3 - successfully OK" << endl;
+	cout << "Пример 3:" << endl;
+	cout << "Тест RectangleClass Пример 3 - выполнен успешно OK" << endl;
 	RectangleClass* TestM = new RectangleClass(0, 0, 4, 0, 0, 4);
-	cout << "Length side a = " << TestM->SideRectangleA();
-	cout << "	Length side b = " << TestM->SideRectangleB();
-	cout << "	COS Angle Rectangle = " << TestM->AngleRectangle() << endl;
-	cout << "Square = " << TestM->SquareXY() << endl;
+	cout << "Длина стороны A = " << TestM->SideRectangleA();
+	cout << "	Длина стороны В = " << TestM->SideRectangleB();
+	cout << "	COS угла прямоугольника = " << TestM->AngleRectangle() << endl;
+	cout << "Площадь = " << TestM->SquareXY() << endl;
 	delete TestM;
 }
 
@@ -282,15 +296,15 @@ void Test_RectangleClass3()
 // вывести все их площади
 void Test_RectangleClass4()
 {
-	cout << "Primer 4:" << endl;
-	cout << "Test_RectangleClass Primer 4 - successfully OK" << endl;
+	cout << "Пример 4:" << endl;
+	cout << "Тест RectangleClass Пример 4 - выполнен успешно OK" << endl;
 	RectangleClass* Test_Mass[3];
 	Test_Mass[0] = new RectangleClass(0, 0, 4, 0, 0, 4);
 	Test_Mass[1] = new RectangleClass(-2, 3, 5, 6, 7, -1);
 	Test_Mass[2] = new RectangleClass(1, -1, -1, 1, 1, 1);
 	for (int i = 0; i < 3; i++)
 	{
-		cout << "Test_Mass " << i + 1 << " - " << " Square: " << Test_Mass[i]->SquareXY() << endl;
+		cout << "Test_Mass " << i + 1 << " - " << " Площадь: " << Test_Mass[i]->SquareXY() << endl;
 	}
 	for (int i = 0; i < 3; i++)
 	{
@@ -304,12 +318,12 @@ void Test_RectangleClass4()
 // вывести плошадь прямоугольника
 void Test_RectangleClass5()
 {
-	cout << "Primer 5:" << endl;
-	cout << "Test_RectangleClass Primer 5 - successfully OK" << endl;
+	cout << "Пример 5:" << endl;
+	cout << "Тест RectangleClass Пример 5 - выполнен успешно OK" << endl;
 	string s = "fclass.txt";
 	RectangleClass Testmass(1, 1, 4, 1, 1, 3);
 	// area before writing to the file - площадь до записи в файл
-	cout << " area before writing to the file : " << Testmass.SquareXY() << endl;
+	cout << " площадь до записи в файл : " << Testmass.SquareXY() << endl;
 	// Запись в файл
 	ofstream Fout;
 	Fout.open(s);
@@ -318,7 +332,7 @@ void Test_RectangleClass5()
 		Fout << Testmass.get_x2() << endl << Testmass.get_y2() << endl;
 		Fout << Testmass.get_x3() << endl << Testmass.get_y3() << endl;
 	}
-	cout << "Write. End of recording" << endl;
+	cout << "Пишем. Конец записи." << endl;
 	Fout.close();
 	// Считывание с файла
 	RectangleClass Testmass1;
@@ -333,8 +347,49 @@ void Test_RectangleClass5()
 		Fin >> x; Fin >> y;
 		Testmass1.set_x3(x); Testmass1.set_y3(y);
 	}
-	cout << "Read. End of file" << endl;
+	cout << "Читаем. Конец файла." << endl;
 	Fin.close();
 	// area after reading from file - площадь после чтения из файла
-	cout << " area after reading from file : " << Testmass.SquareXY() << endl;
+	cout << " площадь после чтения из файла : " << Testmass.SquareXY() << endl;
+}
+
+// Тест с assert-ами, проверяет все функции работы с классом
+void Test_Asserts() {
+	RectangleClass Test;
+	{
+		Test.set_x1(1);			Test.set_y1(1);
+		Test.set_x2(4);			Test.set_y2(1);
+		Test.set_x3(1);			Test.set_y3(3);
+	}
+	assert(Test.get_x1() == 1);
+	assert(Test.get_x2() == 4);
+	assert(Test.get_x3() == 1);
+	assert(Test.get_y1() == 1);
+	assert(Test.get_y2() == 1);
+	assert(Test.get_y3() == 3);
+	double a = Test.SideRectangleA();
+	double b = Test.SideRectangleB();
+	assert(a == 3.0);
+	assert(b == 2.0);
+
+	double angle_a = Test.AngleRectangle();
+	assert(angle_a == 0);
+
+	double d = Test.DiagonalRectangle();
+	assert(d > 3.5);
+
+	double x4 = Test.СoordinateX4();
+	assert(x4 == 4);
+	double y4 = Test.СoordinateY4();
+	assert(y4 == 3);
+
+	Test.RectangleType();
+	assert(Test.type == 1);
+
+	assert(Test.PerimeterAB() == 10.00);
+	assert(Test.SquareAB() == 6.00);
+	assert(Test.PerimeterXY() == 10.00);
+	assert(Test.SquareXY() == 6.00);
+    
+	cout << "Проверка assert выполнена успешно." << endl;
 }
