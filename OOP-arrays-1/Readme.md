@@ -9,7 +9,7 @@
    
  ![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/5e52c92b-6753-42fa-94ae-f93fdb8c35ba)
 
-3. 1 штука
+2. 1 штука
    
 ![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/3f384c61-c622-451f-8b9c-d5d8c88fc7b8)
 
