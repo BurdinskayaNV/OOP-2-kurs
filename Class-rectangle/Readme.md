@@ -21,7 +21,12 @@
 
 ![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/47ad4c53-71c5-4943-bc5e-0ed12913706c)
 
-- добавлены во все тестовые процедуры проверки assert
+- Добавлена процедура Test_Asserts() для проверки всех функций работы с классом
+
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/57af20f1-07b3-4514-b75c-315af9793243)
+
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/7b079ec7-bc9e-4c15-adf0-5d08df996bbd)
+
 - Для процедуры OutputResults() с возвращаемой строковой переменной, выполнена проверка try/catch на Некорректный аргумент выхода
 
 ![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/355a1bd2-af84-4b99-bdae-5dcad5bd8350)
