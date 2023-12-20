@@ -1,7 +1,7 @@
 /// \file City.cpp
-/// \brief cpp-ôàéë ìîäóëü City.cpp
-/// \brief Êëàññ Ãîðîä
-/// \author Áóðäèíñêàÿ Íàòàëüÿ ÂÌÊ-22
+/// \brief cpp-Ñ„Ð°Ð¹Ð» Ð¼Ð¾Ð´ÑƒÐ»ÑŒ City.cpp
+/// \brief ÐšÐ»Ð°ÑÑ Ð“Ð¾Ñ€Ð¾Ð´
+/// \author Ð‘ÑƒÑ€Ð´Ð¸Ð½ÑÐºÐ°Ñ ÐÐ°Ñ‚Ð°Ð»ÑŒÑ Ð’ÐœÐš-22
 /// \date 15.12.2023
 
 #include "City.h"
@@ -9,7 +9,7 @@
 City::City(std::string City_name, std::string City_population, int City_home) {
 	name = City_name;
 	population = City_population;
-	home = City_home; // 2 - ÷àñòíûé äîì, > 2 - ìíîãîêâàðòèðíûé äîì
+	home = City_home; // 2 - Ñ‡Ð°ÑÑ‚Ð½Ñ‹Ð¹ Ð´Ð¾Ð¼, > 2 - Ð¼Ð½Ð¾Ð³Ð¾ÐºÐ²Ð°Ñ€Ñ‚Ð¸Ñ€Ð½Ñ‹Ð¹ Ð´Ð¾Ð¼
 }
 std::string City::work() const {
 	return name + " work on zavod";
