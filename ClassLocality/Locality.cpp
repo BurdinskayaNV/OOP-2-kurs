@@ -1,16 +1,16 @@
 /// \file Locality.cpp
-/// \brief cpp-ôàéë ìîäóëü Locality.cpp
-/// \brief Êëàññ Íàñåë¸ííûé ïóíêò
-/// \author Áóðäèíñêàÿ Íàòàëüÿ ÂÌÊ-22
+/// \brief cpp-Ñ„Ð°Ð¹Ð» Ð¼Ð¾Ð´ÑƒÐ»ÑŒ Locality.cpp
+/// \brief ÐšÐ»Ð°ÑÑ ÐÐ°ÑÐµÐ»Ñ‘Ð½Ð½Ñ‹Ð¹ Ð¿ÑƒÐ½ÐºÑ‚
+/// \author Ð‘ÑƒÑ€Ð´Ð¸Ð½ÑÐºÐ°Ñ ÐÐ°Ñ‚Ð°Ð»ÑŒÑ Ð’ÐœÐš-22
 /// \date 15.12.2023
 
 #include "Locality.h"
 
-// Êëàññ 
+// ÐšÐ»Ð°ÑÑ 
 Locality::Locality(std::string Locality_name, std::string Locality_population, int Locality_home) {
 	name = Locality_name;
 	population = Locality_population;
-	home = Locality_home; // 2 - ÷àñòíûé äîì, > 2 - ìíîãîêâàðòèðíûé äîì
+	home = Locality_home; // 2 - Ñ‡Ð°ÑÑ‚Ð½Ñ‹Ð¹ Ð´Ð¾Ð¼, > 2 - Ð¼Ð½Ð¾Ð³Ð¾ÐºÐ²Ð°Ñ€Ñ‚Ð¸Ñ€Ð½Ñ‹Ð¹ Ð´Ð¾Ð¼
 }
 
 void Locality::set_name(std::string new_name) {
