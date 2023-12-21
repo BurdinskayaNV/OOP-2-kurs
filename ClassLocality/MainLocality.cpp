@@ -1,4 +1,4 @@
-﻿/// \file MainLocality.cpp
+/// \file MainLocality.cpp
 /// \brief тело основной программы
 /// \brief Наследование - Населённый пункт
 /// \brief 
