@@ -1,7 +1,7 @@
-/// \file Village.cpp
-/// \brief cpp-файл модуль Village.cpp
-/// \brief Класс Деревня
-/// \author Бурдинская Наталья ВМК-22
+// \file Village.cpp
+/// \brief cpp-С„Р°Р№Р» РјРѕРґСѓР»СЊ Village.cpp
+/// \brief РљР»Р°СЃСЃ Р”РµСЂРµРІРЅСЏ
+/// \author Р‘СѓСЂРґРёРЅСЃРєР°СЏ РќР°С‚Р°Р»СЊСЏ Р’РњРљ-22
 /// \date 15.12.2023
 
 #include "Village.h"
@@ -18,8 +18,4 @@ std::string Village::live() {
 
 std::string Village::work() {
 	return name + " work in pole ";
-}
-
-std::string Village::walk() {
-	return name + " walk in Forest";
 }
