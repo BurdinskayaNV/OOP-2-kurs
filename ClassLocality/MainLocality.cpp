@@ -26,7 +26,7 @@
 /// \brief Museum - Музей, Forest - Лес
 /// \brief multi_house - многоэтажка, wooden_house - частный дом
 /// \brief large_population - большое население, small_population - маленькое население
-/// \brief
+/// \brief До 1000 человек – деревня, до 30 000 человек – посёлок, более 30 000 – город. 
 /// \brief оформлен через модуль из семи файлов
 /// \brief создан репозиторий в GitHub 
 /// \author Бурдинская Наталья ВМК-22
@@ -35,21 +35,25 @@
 #include "Locality.h"
 #include "City.h"
 #include "Village.h"
-#include <iostream>
 
 int main()
 {
-	Locality A("Chita", "multi", 50000);
-	std::cout << A.live() << std::endl;
-	std::cout << A.work() << std::endl;
-	std::cout << A.live(50000) << std::endl;
+	Locality A("Chita", "The State Duma", 50000);
+	//Locality A("Borzya", "Administration", 28000);
+	cout << A.live() << endl;
+	cout << A.live(28000) << endl;
+	cout << A.work() << endl;
+	cout << A.walk() << endl;
 
-	City B("Borzy", "multi", 50000);
-	std::cout << B.live() << std::endl;
-	std::cout << B.work() << std::endl;
+	City B("Borzya", 28000, "City", 10);
+	cout << B.stone_houses() << endl;
+	cout << B.floors() << endl;
 
-	Village C("Star", "small", 50000);
-	std::cout << C.live() << std::endl;
-	std::cout << C.work() << std::endl;
-	std::cout << C.walk() << std::endl;
+	Village C("Newriver", 780, "Village", 1);
+	cout << C.wooden_houses() << endl;
+	cout << C.floors() << endl;
+
+	A.Output();
+	B.Output();
+	C.Output();
 }
