@@ -20,7 +20,7 @@
 
 ## UML Населенный пункт
 
-![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/f537c5ef-3114-47ca-a326-2746dfe19cbf)
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/63834b7d-4d89-4fbe-a0ae-b1c9682192c1)
 
 
 ## Классы - Locality, City, Village
