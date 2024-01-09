@@ -18,7 +18,7 @@
 /// \brief Город и деревню объединяет то, что там живут люди, ездит транспорт и стоят дома. 
 /// \brief People_live - живут люди
 /// \brief Transport - ездит транспорт
-/// \brief Home - стоят дома
+/// \brief House - стоят дома
 /// \brief walk work live - гуляют работают живут
 /// \brief
 /// \brief Отличие города и деревни 
@@ -32,28 +32,76 @@
 /// \author Бурдинская Наталья ВМК-22
 /// \date 15.12.2023
 
+#include <iostream> // ввод-вывод
+#include <string> // для работы со строками
+// определяет функцию setlocale для установки русской локали и выводить сообщение на русском языке.
+#include <locale>
+// Заголовочный файл модуля Locality.cpp с классом Locality
 #include "Locality.h"
+// Заголовочный файл модуля City.cpp с наследником класса Locality
 #include "City.h"
+// Заголовочный файл модуля Village.cpp с наследником класса Locality
 #include "Village.h"
+// теперь можно обращаться ко всем именам, описанным в std, непосредственно, без префикса std::
+using namespace std;
 
 int main()
 {
-	Locality A("Chita", "The State Duma", 50000);
-	//Locality A("Borzya", "Administration", 28000);
+	// Функция setlocale задаёт локализацию программы
+    // LC_ALL указывает программе, что локализированы будут все функции
+    // «Rus» локализация произойдёт на русский язык
+	setlocale(LC_ALL, "RUSSIAN");
+	system("chcp 65001 > nul"); // подключение русского языка 
+
+	// Проверка работоспособности классов
+	cout << "_________ТЕСТИРОВАНИЕ_КЛАССОВ_________" << endl;
+	cout << endl;
+	test_Locality();
+	cout << endl;
+	test_City();
+	cout << endl;
+	test_Village();
+	cout << endl;
+	cout << "_____ТЕСТИРОВАНИЕ_ВЫПОЛНЕНО_УСПЕШНО_____" << endl;
+	cout << endl;
+	cout << endl;
+	
+	cout << "__________ПРИМЕРЫ__________" << endl;
+	cout << endl;
+	Locality A("Чита", 333679, Город, "Органы местного самоуправления", "Особенности населенных пунктов зависят от их размера и типа");
 	cout << A.live() << endl;
-	cout << A.live(28000) << endl;
 	cout << A.work() << endl;
 	cout << A.walk() << endl;
+	cout << endl;
 
-	City B("Borzya", 28000, "City", 10);
-	cout << B.stone_houses() << endl;
-	cout << B.floors() << endl;
-
-	Village C("Newriver", 780, "Village", 1);
-	cout << C.wooden_houses() << endl;
-	cout << C.floors() << endl;
-
+	LocCity B("Омск", 1110836, Город, "Администрпция города Омск", "Омск крупный город", 10, "промышленность",
+		"музеи, торговые центры, театры и кино", "сильно развитые централизованные энергетическая система, водоснабжение, канализация и системы отопления");
+	cout << B.live() << endl;
+	cout << B.work() << endl;
+	cout << B.walk() << endl;
+	cout << B.infr() << endl;
+	cout << endl;
+	
+	LocVillage C("Новотроицк", 500, Деревня, "Новотроицкий сельсовет", "Новотроицк селение Забайкальского края", 1, "сельским хозяйством",
+		"сельский клуб и библиотека", "чистый воздух, чистая вода, натуральные продукты");
+	cout << C.live() << endl;
+	cout << C.work() << endl;
+	cout << C.walk() << endl;
+	cout << C.eco() << endl;
+	cout << endl;
+	cout << endl;
+	
+	cout << "_____ВЫПОЛНЕНИЕ_РАБОТЫ_КЛАССОВ_____" << endl;
+	cout << endl;
 	A.Output();
+	cout << endl;
 	B.Output();
+	cout << endl;
 	C.Output();
+	cout << endl;
+	cout << "___________________________________" << endl;
+	cout << endl;
+	
+	return 0;
 }
+
