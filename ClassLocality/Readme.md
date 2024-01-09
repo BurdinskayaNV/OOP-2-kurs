@@ -1,5 +1,5 @@
 # ООП Наследование - Населённый пункт
-## V.2.24.12.2023 Классы - Locality, City, Village
+## V.2.05.01.2024 Классы - Locality, City, Village
 - Добавлен UML Населённый пункт
 - поле population заменено на тип int
 - добавлен перечисляемый тип видов (город, поселок, деревня) - enum LocType { City, Village, Other};
@@ -12,7 +12,8 @@
 
 ## UML Населенный пункт
 
-![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/63834b7d-4d89-4fbe-a0ae-b1c9682192c1)
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/5802be20-250b-4bd1-bdab-f9005b1152d2)
+
 
 
 ## Классы - Locality, City, Village
