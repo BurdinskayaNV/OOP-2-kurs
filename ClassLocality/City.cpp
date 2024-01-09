@@ -5,56 +5,71 @@
 /// \date 15.12.2023
 
 #include "City.h" // Заголовочный файл с наследником класса Locality
-#include "Locality.h" // Заголовочный файл с классом Locality
+#include <iostream> // ввод-вывод
+#include <cassert> // для assert
 
-City::City (string City_name, int City_population, string City_TypeLoc, int City_house) {
-	name = City_name; // наименование города
-	population = City_population; // численность населения
-	TypeLoc = City_TypeLoc; // тип населенного пункта
-	House = City_house; // жилье - дом, 1 - одноэтажные, больше 1 - многоэтажные
-}
-string City::stone_houses() const {
-	// дома кирпичные и панельные.
-	return name + " - the houses are brick and panel.";
-}
+//Конструктор с параметрами
+LocCity::LocCity(string Loc_name, int Loc_population, LocType Loc_type, string Loc_power, string Loc_info, int Loc_house, string Loc_occupation, string Loc_leisure, string Loc_Infrastructure)
+	: Locality(Loc_name, Loc_population, Loc_type, Loc_power, Loc_info), house(Loc_house), occupation(Loc_occupation), leisure(Loc_leisure), Infrastructure (Loc_Infrastructure) {};
 
-string City::floors() const {
-	// дома и сооружения здесь многоэтажные.
-	return name + " - the houses and buildings are multi-storey.";
+// люди живут в каких домах
+string LocCity::live() const {
+	string ss = "нет";
+	if (house > 2) { ss = "много -"; }
+	if (house < 3) { ss = "одно-двух"; }
+	return "В городе " + name + " люди живут в кирпичных " + ss + " этажных домах.";
 }
 
-string City::work() const {
-	string ss = "  Other"; // разбиваем перечислимый тип на строки
-	if (population > 30000)
-		// Люди работают в больницах, школах, на предприятиях и в торговых центрах.
-		ss = ": - City. People work in hospitals, schools, businesses, and shopping malls.";
-
-	if ((population > 1000) && (population <= 30000))
-		// Люди работают в медицинских центрах, школах, магазинах, занимаются сельским хозяйством.
-		ss = ": - City_Village. People work in medical centers, schools, shops, and are engaged in agriculture.";
-
-	if (population <= 1000)
-		// Люди занимаются сельским хозяйством.
-		ss = ": - Village. People are engaged in agriculture.";
-
-	if (ss == "  Other")
-		// Неопределенное место для работы.
-		ss = ": - Other. An undefined place to work.";
-
-	return name + ss;
+// люди где работают
+string LocCity::work() const {
+	return "В городе " + name + " люди заняты в сфере " + occupation + ".";
 }
 
-void City::Output() const {
-	string s1 = stone_houses();
-	string s2 = floors();
-	string s3 = work();
-	cout << endl;
-	cout << " City         " << endl;
-	cout << " Name       : " << name << endl;
-	cout << " Population : " << population << endl;
-	cout << " TypeLoc    : " << TypeLoc << endl;
-	cout << " House      : " << s1 << endl;
-	cout << " Floors     : " << s2 << endl;
-	cout << " Work       : " << s3 << endl;
-	cout << endl;
+// люди где проводят досуг
+string LocCity::walk() const {
+	return "В городе " + name + " люди гуляют в парках, посещают " + leisure + ".";
+}
+
+// инфраструктура и коммуникации
+string LocCity::infr() const {
+	return "В городе " + name + " " + Infrastructure + ".";
+}
+
+// преобразование в строку
+string LocCity::Loc_to_string() const {
+	return "Город " + name + ": - население " + to_string(get_population()) + " человек, тип - " + get_type()
+		+ ", орган власти - " + power + ", дополнительная информация - " + info + ", люди занимаются - " + occupation
+		+ ", инфраструктура - " + Infrastructure + ".";
+}
+
+// вывод полей класса LocCity
+void LocCity::Output() const {
+	string ss = "Другое";
+	if (type == 0) { ss = "Город"; }
+	if (type == 1) { ss = "Деревня"; }
+	string sss = "нет";
+	if (house > 2) { sss = "много -"; }
+	if (house < 3) { sss = "одно-двух"; }
+	cout << "----------------------------" << endl;
+	cout << " ГОРОД _____________________  " << endl;
+	cout << " Наименование              :  " << name << endl;
+	cout << " Численность населения     :  " << population << " человек" << endl;
+	cout << " Тип населенного пункта    :  " << ss << endl;
+	cout << " Орган власти              :  " << power << endl;
+	cout << " Дополнительная информация :  " << info << endl;
+	cout << " Жилые дома                :  " << sss << " этажный дом" << endl;
+	cout << " Занятость населения       :  " << occupation << endl;
+	cout << " Досуг и отдых             :  " << leisure << endl;
+	cout << " Инфраструктура            :  " << Infrastructure << endl;
+	cout << "----------------------------" << endl;
+}
+
+// проверка работы класса LocCity
+void test_City() {
+	cout << "Тестирование класса LocCity:" << endl;
+	LocCity Test2("Омск", 1110836, Город, "Администрпция города Омск", "Омск крупный город", 10, "промышленность", "музеи, торговые центры, театры и кино",
+		          "сильно развитые централизованные энергетическая система, водоснабжение, канализация и системы отопления");
+	cout << Test2.Loc_to_string() << endl;
+	assert(Test2.Loc_to_string() == "Город Омск: - население 1110836 человек, тип - Город, орган власти - Администрпция города Омск, дополнительная информация - Омск крупный город, люди занимаются - промышленность, инфраструктура - сильно развитые централизованные энергетическая система, водоснабжение, канализация и системы отопления.");
+	cout << "Тестирование класса 'LocCity' выполнено УСПЕШНО" << endl;
 }
