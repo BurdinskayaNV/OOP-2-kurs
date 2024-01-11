@@ -8,10 +8,8 @@
 #include <fstream>
 // определяет функцию setlocale для установки русской локали и выводить сообщение на русском языке.
 #include <locale>
-//объявляет класс векторов
-#include <vector>
-//для использования строк
-#include <string> 
+#include <vector> //объявляет класс векторов
+#include <string> //для использования строк
 //динамич.управление памятью, генерации случайных чисел srand и rand
 //для использования abort, в случае ошибок в try catch
 #include <stdlib.h> 
@@ -19,14 +17,12 @@
 #include <time.h> 
 //модуль с математическими константами и функциями - fabs ...
 #include <cmath> 
-//для assert
-#include <cassert>
+#include <cassert> //для assert
 //Объявляет cin cout,управляющие чтением из станд.потоков и записью в них
 #include <iostream>
 //для определения нужного числа манипуляторов setw setprecision
 #include <iomanip> 
-//для обработки исключений exception
-#include <stdexcept>  
+#include <stdexcept> //для обработки исключений exception
 //теперь можно обращаться ко всем именам, описанным в std, непосредственно, без префикса std::
 using namespace std;
 
@@ -53,7 +49,7 @@ namespace NamespaceMassiv
 	//---процедура вывода на экран массива N
 	// ничего не возвращает, просто выводит на консоль
 	template<typename type>
-	void Screen_Mass(vector<type>& a)
+	void Screen_Mass(const vector<type>& a)
 	{
 		// массив a – формальные параметры
 		for (unsigned i = 0; i < a.size(); i++)
@@ -67,7 +63,7 @@ namespace NamespaceMassiv
 	// массив a – формальные параметры
 	// возвращает сумму типа int
 	template<typename type>
-	int Sum_Mass(vector<type>& a)
+	int Sum_Mass(const vector<type>& a)
 	{
 		// определение переменной (объявление + инициализация)
 		int sum = 0;
@@ -77,12 +73,6 @@ namespace NamespaceMassiv
 		}
 		return sum; // возврат суммы sum из функции Sum_Mass
 	}
-
-	//---ввод размера массива (для try-catch)
-	int ReadArrLength();
-
-	//---ввод имени файла для ввода и вывода массива (для try-catch)
-	string ReadFileName();
 
 	//---функция поиска количества элементов массива в файле
 	unsigned SizeFile(const string& file_name);
@@ -99,11 +89,11 @@ namespace NamespaceFile
 	// массив a – формальные параметры
 	// ничего не возвращает, просто пишет массив в файл
 	template<typename type>
-	void WriteFile(vector<type>& a)
+	void WriteFile(string file_name, const vector<type>& a)
 	{
 		// Режим открытия файла для записи ios::out
 		// устанавливается при создании файла
-		ofstream Fin("fmass.txt", ios::out); //затирает старые и пишет новые данные
+		ofstream Fin(file_name, ios::out); //затирает старые и пишет новые данные
 		// пишем в файл отправленный массив
 		for (unsigned i = 0; i < a.size(); ++i)
 		{
@@ -111,23 +101,23 @@ namespace NamespaceFile
 		}
 		Fin << endl;
 		Fin.close(); // Функция close() закрывает поток файла
-		cout << "Write. End of recording" << endl;
+		cout << "Пишем. Конец записи." << endl;
 	}
 
 	//-----процедурa чтения из файла fmass.txt
 	// n – формальные параметры - размерность массива
 	// возвращает прочитанный массив a из файла
-	vector<double> ReadFile(unsigned n);
+	vector<double> ReadFile(string file_name, unsigned n);
 	
 	//---процедурa добавления записи в файл fmass.txt
 	// массив a – формальные параметры
 	// ничего не возвращает, просто пишет массив в файл
 	template<typename type>
-	void AddFile(vector<type>& a)
+	void AddFile(string file_name, const vector<type>& a)
 	{
 		//Режим открытия файла для добавления записи ios::app
 		//устанавливается при создании файла
-		ofstream Fin("fmass.txt", ios::app); // добавление в конец файла
+		ofstream Fin(file_name, ios::app); // добавление в конец файла
 		// пишем в файл отправленный массив
 		for (unsigned i = 0; i < a.size(); ++i)
 		{
@@ -135,7 +125,7 @@ namespace NamespaceFile
 		}
 		Fin << endl;
 		Fin.close(); /// Функция fclose() закрывает поток файла
-		cout << "Add. End of recording" << endl;
+		cout << "Добавить. Конец записи." << endl;
 		cout << "\n";
 	}
 }
