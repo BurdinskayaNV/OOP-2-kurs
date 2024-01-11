@@ -27,7 +27,7 @@ namespace NamespaceMassiv
 
 	//---процедура вывода на экран массива N
 	// ничего не возвращает, просто выводит на консоль
-	void Screen_Mass(vector<double>& a)
+	void Screen_Mass(const vector<double>& a)
 	{
 		// массив a – формальные параметры
 		for (unsigned i = 0; i < a.size(); i++)
@@ -40,7 +40,7 @@ namespace NamespaceMassiv
 	//---функция расчета суммы |a1| + ... + |an|
 	// массив a – формальные параметры
 	// возвращает сумму типа int
-	int Sum_Mass(vector<double>& a)
+	int Sum_Mass(const vector<double>& a)
 	{
 		// определение переменной (объявление + инициализация)
 		int sum = 0;
@@ -51,34 +51,7 @@ namespace NamespaceMassiv
 		return sum; // возврат суммы sum из функции Sum_Mass
 	}
 
-	//---ввод размера массива (для try-catch)
-	int ReadArrLength() {
-		int len;
-		cin >> len;
-		if ((len <= 0)) {
-			throw length_error("(len <= 0) || (len >= 32769)");
-		}
-		else {
-			return len;
-		}
-	}
-
-	//---ввод имени файла для ввода и вывода массива (для try-catch)
-	string ReadFileName() {
-		string file_name;
-		;
-		char rep[]{ '*', '/', ':', '?', '"', '<', '>', '|' };
-		cin >> file_name;
-		for (int i = 0; i < 8; i++) {
-			if (file_name.find(rep[i]) != file_name.npos) {
-				throw invalid_argument("Некорректное имя файла");
-			}
-			file_name = file_name + ".txt";
-			return file_name;
-		}
-	}
-
-	//---функция поиска количества элементов массива в файле
+		//---функция поиска количества элементов массива в файле
 	unsigned SizeFile(const string& file_name)
 	{
 		unsigned res = 0; // Переменная для счета количества строк
@@ -86,7 +59,7 @@ namespace NamespaceMassiv
 		ifstream file(file_name); // Открытие файла 
 		if (!file.is_open()) // Если не открыт файл
 		{
-			throw runtime_error("File not found"); // Если что, то в ошибку
+			throw runtime_error("Файл fmass.txt не найден!"); // Если что, то в ошибку
 		}
 		// Цикл счёта количества строк -> количества элементов массива
 		while (getline(file, line))
@@ -95,7 +68,7 @@ namespace NamespaceMassiv
 		}
 		file.close(); // Закрыть файл
 		if (res == 0) // Ошибка, если файл пуст
-			throw runtime_error("Array not found in file - file is empty");
+			throw runtime_error("Массив не найден в файле - файл пуст");
 		return res;
 	}
 
@@ -116,7 +89,7 @@ namespace NamespaceMassiv
 		b[0] = 2; b[1] = 2; b[2] = 2; // |b0| + |b1| + |b2| = 2 + 2 + 2 = 6
 		assert(Sum_Mass(b) == 6); // проверка не через константу EPS
 
-		cout << "test Sum_Mass - OK" << endl;
+		cout << "Тест Sum_Mass - OK" << endl;
 		b.clear();
 		//после окончания работы c массивом обязательно освобождаем его память
 	}
@@ -128,66 +101,78 @@ namespace NamespaceFile
 	//---процедурa записи в файл fmass.txt
 	// массив a – формальные параметры
 	// ничего не возвращает, просто пишет массив в файл
-	void WriteFile(vector<double>& a)
+	void WriteFile(string file_name, const vector<double>& a)
 	{
 		// Режим открытия файла для записи ios::out
 		// устанавливается при создании файла
-		ofstream Fin("fmass.txt", ios::out); //затирает старые и пишет новые данные
-		// пишем в файл отправленный массив
-		for (unsigned i = 0; i < a.size(); ++i)
+		ofstream Fin(file_name, ios::out); //затирает старые и пишет новые данные
+		if (Fin.is_open())
 		{
-			Fin << a[i] << " ";
+			// пишем в файл отправленный массив
+			for (unsigned i = 0; i < a.size(); ++i)
+			{
+				Fin << a[i] << " ";
+			}
+			Fin << endl;
 		}
-		Fin << endl;
+		else
+			throw invalid_argument("Файл fmass.txt не найден!");
+
 		Fin.close(); // Функция close() закрывает поток файла
-		cout << "Write. End of recording" << endl;
+		cout << "Пишем. Конец записи." << endl;
 	}
 
 	//---процедурa чтения из файла fmass.txt
 	// n – формальные параметры - размерность массива
 	// возвращает прочитанный массив a из файла
-	vector<double> ReadFile(unsigned n)
+	vector<double> ReadFile(string file_name, unsigned n)
 	{
 		vector<double> a{ 0 };
 		a.resize(n);
 		ifstream Fout; // объявляем имя Fout для чтения
 		//Режим открыть файл для чтения ios::in можно установить при
 		//вызове метода open(), необязательно при создании файла(процедура выше)
-		Fout.open("fmass.txt", ios::in); //открываем файл для чтения на начале
+		Fout.open(file_name, ios::in); //открываем файл для чтения на начале
 		//проверяю на наличие файла
-		if (!Fout.good())
+		if (Fout.is_open())
 		{
-			cout << "The file fmass.txt was not found !" << endl;
+		   if (!Fout.eof()) // делаем пока не конец 
+			  for (int i = 0; i < n; ++i)
+			  {
+				Fout >> a[i];
+			  }
 		}
 		else
-		{
-			if (!Fout.eof()) // делаем пока не конец 
-				for (int i = 0; i < n; ++i)
-				{
-					Fout >> a[i];
-				}
-		}
+			throw invalid_argument("Файл fmass.txt не найден!");
+
 		Fout.close(); // Функция close() закрывает поток файла
-		cout << "Read. End of file" << endl;
+		cout << "Читаем. Конец файла." << endl;
+		cout << "\n";
 		return a;
 	}
 
 	//---процедурa добавления записи в файл fmass.txt
 	// массив a – формальные параметры
 	// ничего не возвращает, просто пишет массив в файл
-	void AddFile(vector<double>& a)
+	void AddFile(string file_name, const vector<double>& a)
 	{
 		//Режим открытия файла для добавления записи ios::app
 		//устанавливается при создании файла
-		ofstream Fin("fmass.txt", ios::app); // добавление в конец файла
-		// пишем в файл отправленный массив
-		for (unsigned i = 0; i < a.size(); ++i)
+		ofstream Fin(file_name, ios::app); // добавление в конец файла
+		if (Fin.is_open())
 		{
-			Fin << a[i] << " ";
+			// пишем в файл отправленный массив
+			for (unsigned i = 0; i < a.size(); ++i)
+			{
+				Fin << a[i] << " ";
+			}
+			Fin << endl;
 		}
-		Fin << endl;
+		else
+			throw invalid_argument("Файл fmass.txt не найден!");
+
 		Fin.close(); /// Функция fclose() закрывает поток файла
-		cout << "Add. End of recording" << endl;
+		cout << "Добавить. Конец записи." << endl;
 		cout << "\n";
 	}
 }
