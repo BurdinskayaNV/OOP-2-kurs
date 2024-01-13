@@ -102,6 +102,28 @@ int main()
 	cout << "___________________________________" << endl;
 	cout << endl;
 	
+	LocCity LA;
+	LocVillage LD;
+	Locality LB;
+	Locality* LC = &LA;
+
+	LA.live();
+	LB.live();
+	LD.live();
+	cout << "___________________________________" << endl;
+	cout << endl;
+
+	LC = &LA; //Полиморфизм будет работать 	//Преобразование типов НЕ производится
+	LB = LA;  //Полиморфизм не будет работать	//Преобразование типов производится
+
+	LC->live(); 			
+	LB.live(); 			
+
+	LC = &LD;
+
+	LocVillage* testPtr = dynamic_cast<LocVillage*>(LC);
+	if (testPtr) testPtr->set_house(10);
+
 	return 0;
 }
 
