@@ -6,40 +6,20 @@
 
 #include "Village.h" // Заголовочный файл с наследником класса Locality
 #include <iostream> // ввод-вывод
-#include <cassert> // для assert
+#include <cassert> // для assert  string Loc_info,
 
 //Конструктор с параметрами
-LocVillage::LocVillage(string Loc_name, int Loc_population, LocType Loc_type, string Loc_power, string Loc_info, int Loc_house, string Loc_occupation, string Loc_leisure, string Loc_ecology)
-: Locality(Loc_name, Loc_population, Loc_type, Loc_power, Loc_info)
-{
-	set_house(Loc_house);
-	set_occupation(Loc_occupation);
-	set_leisure(Loc_leisure);
-	ecology = Loc_ecology;
-}
+LocVillage::LocVillage(string Loc_name, int Loc_population, string Loc_power, int Loc_house, string Loc_occupation, string Loc_leisure, string Loc_info, string Loc_ecology)
+	: Locality(Loc_name, Loc_population, Loc_power, Loc_house, Loc_occupation, Loc_leisure, Loc_info), ecology(Loc_ecology) {};
 
-// сеттер и геттер для этажности дома
-void LocVillage::set_house(int new_house) {
-	house = new_house;
+// сеттер и геттер для экологии
+void LocVillage::set_ecology(string new_ecology) {
+	if (new_ecology != "")
+		ecology = new_ecology;
+	else throw std::invalid_argument("Недействительный аргумент ecology");
 }
-int LocVillage::get_house() const {
-	return house;
-}
-
-// сеттер и геттер для занятости населения
-void LocVillage::set_occupation(string new_occupation) {
-	occupation = new_occupation;
-}
-std::string LocVillage::get_occupation() const {
-	return occupation;
-}
-
-// сеттер и геттер для досуга населения
-void LocVillage::set_leisure(string new_leisure) {
-	leisure = new_leisure;
-}
-string LocVillage::get_leisure() const {
-	return leisure;
+string LocVillage::get_ecology() const {
+	return ecology;
 }
 
 // люди живут в каких домах
@@ -67,15 +47,18 @@ string LocVillage::eco() const {
 
 // преобразование в строку
 string LocVillage::Loc_to_string() const {
-	return "Деревня " + name + ": - население " + to_string(get_population()) + " человек, тип - " + get_type() + ", орган власти - " 
-		+ power + ", дополнительная информация - " + info + ", люди занимаются - " + get_occupation() + ", экология - " + ecology + ".";
+	string ss = "Другое";
+	if (population > 30000) { ss = "Город"; }
+	if (population <= 30000) { ss = "Деревня"; }
+	return "Деревня " + name + ": - население " + to_string(get_population()) + " человек, тип - " + ss + ", орган власти - " 
+		+ power + ", дополнительная информация - " + info + ", люди занимаются - " + occupation + ", экология - " + ecology + ".";
 }
 
-// вывод полей класса LocVillage
+// вывод полей класса LocVillage в таблицу
 void LocVillage::Output() const {
 	string ss = "Другое";
-	if (type == 0) { ss = "Город"; }
-	if (type == 1) { ss = "Деревня"; }
+	if (population > 30000) { ss = "Город"; }
+	if (population <= 30000) { ss = "Деревня"; }
 	string sss = "нет";
 	if (house > 2) { sss = "много -"; }
 	if (house < 3) { sss = "одно-двух"; }
@@ -85,10 +68,10 @@ void LocVillage::Output() const {
 	cout << " Численность населения     :  " << population << " человек" << endl;
 	cout << " Тип населенного пункта    :  " << ss << endl;
 	cout << " Орган власти              :  " << power << endl;
-	cout << " Дополнительная информация :  " << info << endl;
 	cout << " Жилые дома                :  " << sss << " этажный дом" << endl;
 	cout << " Занятость населения       :  " << occupation << endl;
 	cout << " Досуг и отдых             :  " << leisure << endl;
+	cout << " Дополнительная информация :  " << info << endl;
 	cout << " Экология                  :  " << ecology << endl;
 	cout << "----------------------------" << endl;
 }
@@ -96,8 +79,11 @@ void LocVillage::Output() const {
 // проверка работы класса LocVillage
 void test_Village() {
 	cout << "Тестирование класса LocVillage:" << endl;
-	LocVillage Test3("Новотроицк", 500, Деревня, "Новотроицкий сельсовет", "Новотроицк селение Забайкальского края", 1,
-		       "сельское хозяйство", "сельский клуб и библиотека", "чистый воздух, чистая вода, натуральные продукты");
+	LocVillage Test3("Новотроицк", 500, "Новотроицкий сельсовет", 1, "сельское хозяйство", "сельский клуб и библиотека",
+		       "Новотроицк селение Забайкальского края", "чистый воздух, чистая вода, натуральные продукты");
+	Test3.live();
+	Test3.work();
+	Test3.walk();
 	cout << Test3.Loc_to_string() << endl;
 	assert(Test3.Loc_to_string() == "Деревня Новотроицк: - население 500 человек, тип - Деревня, орган власти - Новотроицкий сельсовет, дополнительная информация - Новотроицк селение Забайкальского края, люди занимаются - сельское хозяйство, экология - чистый воздух, чистая вода, натуральные продукты.");
 	cout << "Тестирование класса 'LocVillage' выполнено УСПЕШНО" << endl;
