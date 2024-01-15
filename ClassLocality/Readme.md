@@ -5,9 +5,13 @@
 - исправлен перечисляемый тип видов (город, деревня, так как имеется два типа населенных пунктов по ФЗ городской и сельский) - enum LocType { City, Village, Other};
 - исправлено и дополнено тестирование
   
-![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/39545e15-892f-474a-b9e3-bc40da19c27b)
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/0aaf2ee4-648b-4259-ac50-c56a3440ed99)
 
-![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/92983103-e6ac-4169-bf3a-2748061a7634)
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/e1e5358c-a3e4-4b02-9421-d17355de068a)
+
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/830a4bb2-a7e2-4fbe-acb5-f98857ebe8e7)
+
+![image](https://github.com/BurdinskayaNV/OOP-2-kurs/assets/148595309/2cb1c5b1-51f6-4168-92cd-dba60e77b050)
 
 
 ## UML Населенный пункт
