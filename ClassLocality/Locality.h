@@ -16,7 +16,7 @@ using namespace std;
 // Специальный тип для указания населенного пункта
 // перечисляемый тип видов (город, поселок, деревня, другое)
 // До 1000 человек – деревня, до 30 000 человек – посёлок, более 30 000 – город
-enum LocType { Город, Деревня, Другое };
+enum LocType { Город, Деревня, Другое };  //** убрать
 
 // Класс, хранящий информацию о населенном пункте Locality
 // 4 обязательных характеристик населенного пункта - 
@@ -25,23 +25,26 @@ class Locality
 {
 protected:
 	int population;	// численность населения
-	LocType type; // переменная типа класса LocType
+	string power; // власть
 public:
 	string name; // имя населенного пункта
-	string power; // власть
+	int house; // жилье - этажность дома, 1 - одноэтажные, 2 - двухэтажные, больше 2 - многоэтажные
+	string occupation; // занятия населения
+	string leisure; // досуг населения
 	string info; // дополнительная информация
 
 	// Методы
 	// Конструктор с параметрами
-	Locality(string Loc_name = "Locality", int Loc_population = 0, LocType Loc_type = Другое, string Loc_power = "-", string Loc_info = "-");
+	Locality(string Loc_name = "Locality", int Loc_population = 0, string Loc_power = "-",
+		     int Loc_house = 0, string Loc_occupation = "-", string Loc_leisure = "-", string Loc_info = "-");
 
 	// сеттер и геттер для численности населения
 	void set_population(int new_population);
 	int get_population() const;
 
-	// сеттер и геттер для типа населенного пункта
-	void set_type(LocType new_type);
-	string get_type() const;
+	// сеттер и геттер для органов власти
+	void set_power(string new_power);
+	string get_power() const;
 
 	// в населенном пункте живут
 	virtual string live() const;
@@ -55,7 +58,7 @@ public:
 	// преобразование в строку
 	virtual string Loc_to_string() const;
 
-	// вывод полей класса Locality
+	// вывод полей класса Locality в таблицу
 	virtual void Output() const;
 };
 
@@ -63,4 +66,5 @@ public:
 void test_Locality();
 
 #endif
+
 
