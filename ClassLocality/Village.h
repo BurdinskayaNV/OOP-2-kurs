@@ -14,29 +14,16 @@
 // класс LocVillage
 class LocVillage :	public Locality {
 private:
-	// поля наследники
-	int house; // жилье - этажность дома, 1 - одноэтажные, больше 1 - многоэтажные
-	string occupation; // занятия населения
-	string leisure; // досуг населения
-public:
 	string ecology; // экология
-
+public:
 	// конструктор класса город
-	LocVillage(string Loc_name = "Locality", int Loc_population = 0, LocType type = Другое, string Loc_power = "-", string Loc_info = "-",
-		int Loc_house = 0, string Loc_occupation = "-", string Loc_leisure = "-", string ecology = "-");
-		
-	// сеттер и геттер для этажности дома
-	void set_house(int new_house);
-	int get_house() const;
-
-	// сеттер и геттер для занятости населения
-	void set_occupation(string new_occupation);
-	string get_occupation() const;
-
-	// сеттер и геттер для досуга населения
-	void set_leisure(string new_leisure);
-	string get_leisure() const;
-
+	LocVillage(string Loc_name = "Locality", int Loc_population = 0, string Loc_power = "-", int Loc_house = 0, 
+		       string Loc_occupation = "-", string Loc_leisure = "-", string Loc_info = "-", string ecology = "-");
+	
+	// сеттер и геттер для экологии
+	void set_ecology(string new_ecology);
+	string get_ecology() const;
+	
 	// люди живут в каких домах
 	string live() const override;
 
@@ -52,7 +39,7 @@ public:
 	// преобразование в строку
 	string Loc_to_string() const override;
 
-	//вывод полей класса LocVillage
+	//вывод полей класса LocVillage в таблицу
 	void Output() const override;
 };
 
@@ -60,3 +47,4 @@ public:
 void test_Village();
 
 #endif
+
