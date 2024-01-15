@@ -15,14 +15,11 @@
 class LocCity : public Locality {
 public:
 	// поля наследники
-	int house; // жилье - этажность дома, 1 - одноэтажные, больше 1 - многоэтажные
-	string occupation; // занятия населения
-	string leisure; // досуг населения
 	string Infrastructure; // Инфраструктура и коммуникации
 
 	// Конструктор с параметрами
-	LocCity(string Loc_name = "Locality", int Loc_population = 0, LocType Loc_type = Другое, string Loc_power = "-",
-		    string Loc_info = "-", int Loc_house = 0, string Loc_occupation = "-", string Loc_leisure = "-", string Loc_Infrastructure = "-");
+	LocCity(string Loc_name = "Locality", int Loc_population = 0, string Loc_power = "-", int Loc_house = 0, string Loc_occupation = "-",
+		    string Loc_leisure = "-", string Loc_info = "-", string Loc_Infrastructure = "-");
 
 	// люди живут в каких домах
 	string live() const override;
@@ -39,7 +36,7 @@ public:
 	// преобразование в строку
 	string Loc_to_string() const override;
 
-	//вывод полей класса LocCity
+	//вывод полей класса LocCity в таблицу
 	void Output() const override;
 };
 
@@ -47,3 +44,4 @@ public:
 void test_City();
 
 #endif
+
