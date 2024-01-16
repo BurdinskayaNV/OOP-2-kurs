@@ -38,6 +38,11 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 	// «Rus» локализация произойдёт на русский язык.
 	system("chcp 65001 > nul"); //подключение русского языка 
 	setlocale(LC_ALL, "RUSSIAN");
+
+	// Генерирует случайное число, используя текущею дату, для непредсказуемости результата
+	srand(time(0)); // инициализация генератора случайных чисел текущим временем в секундах time
+	// *** перенесла из процедуры Vvod_Mass в главный модуль
+
 	// Аргументы командной строки cmd arg для функции main
 	// argv[0] - имя файла Massiv_main.exe
 	// значит начинаем argv[1] и argv[2] 
@@ -49,14 +54,14 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 	int k = argc;
 	if (k == 1)
 	{
-		try {
+		try { // ****** 
 			cout << "Введите размерность массива" << endl;
 			cout << "n = "; cin >> n;
 		}
 		catch (const length_error err) {
 			cout << err.what() << endl; // выводим сообщение об ошибке
 		}
-		try {
+		try { // *******НЕ нужен
 			cout << "Введите имя файла " << endl;
 			cout << "file_name = "; cin >> file_name;
 		}
@@ -69,7 +74,7 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 	if (k == 2)
 	{
 		str_argv = argv[1];
-		try {
+		try { // ******** не нужен 
 			if (str_argv == "help")	// Если введут help
 			{
 				cout << "Чтобы программа работала корректно, введите первый аргумент число: <размерность массива>" << endl;
@@ -91,7 +96,7 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 		catch (const std::length_error err) {
 			cout << err.what() << endl; // выводим сообщение об ошибке
 		}
-		try {
+		try { // ********* не нужен
 			file_name = argv[2];
 		}
 		catch (const std::invalid_argument inval) {//ловим исключение
@@ -108,17 +113,19 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 
 		// проверка работы функции Sum_Mass на разных входных данных
 		Test_Sum_Mass();
+		cout << "\n";
 		cout << "Сумма |a1| + ... + |an| = " << Sum_Mass(arr) << endl;
 		cout << "\n";
 
 		// выполняем запись массива в файл
-		WriteFile(file_name, arr);
+		WriteFile(file_name, arr); // *********** Try
 		cout << "\n";
+
 		// читаем из файла массив и выдаем на консоль
 		// file_name = argv[2]; // название файла
 		try   // проверка на исключения
 		{
-			// Заполняем массив arr1 из файла fmass.txt
+			// Заполняем массив arr1 из файла *.txt
 			// это защищенный блок кода 
 			// при чтении массива может возникнуть исключение 
 			// Находим количество элементов массива из файла
@@ -129,11 +136,12 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 			// Код, который выполняется при возникновении исключения типа
 			// Exception генерируется в блоке try
 			// Зарегистрировать сообщение об ошибке в объекте exception
-			cout << error.what() << endl;
+			cout << error.what() << endl; // Завершить
 		}
+
 		vector<double> arr1;
 		arr1.resize(n); // Задаем размер size
-		arr1 = ReadFile(file_name, n);
+		arr1 = ReadFile(file_name, n); // ************ Try
 		Screen_Mass(arr1); // выводим на экран массив введеных коэффициентов
 		arr.clear();
 	return 0;
