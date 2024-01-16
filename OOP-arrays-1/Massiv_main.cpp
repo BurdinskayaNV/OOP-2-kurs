@@ -99,12 +99,15 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 		cout << "\n";
 
 		// выполняем запись массива в файл
-		WriteFile(file_name, arr); // *********** Try
+		try{
+			WriteFile(file_name, arr); }  // *********** Try
+		catch (const invalid_argument& error) {
+			cout<<error.what();}
 		cout << "\n";
 
 		// читаем из файла массив и выдаем на консоль
 		// file_name = argv[2]; // название файла
-		try   // проверка на исключения
+	        /*try   // проверка на исключения
 		{
 			// Заполняем массив arr1 из файла *.txt
 			// это защищенный блок кода 
@@ -118,11 +121,14 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 			// Exception генерируется в блоке try
 			// Зарегистрировать сообщение об ошибке в объекте exception
 			cout << error.what() << endl; // Завершить
-		}
+		} */
 
 		vector<double> arr1;
 		arr1.resize(n); // Задаем размер size
+	
 		arr1 = ReadFile(file_name, n); // ************ Try
+
+	
 		Screen_Mass(arr1); // выводим на экран массив введеных коэффициентов
 		arr.clear();
 	return 0;
