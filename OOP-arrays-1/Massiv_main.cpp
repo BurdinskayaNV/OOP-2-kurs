@@ -125,9 +125,11 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 
 		vector<double> arr1;
 		arr1.resize(n); // Задаем размер size
-	
-		arr1 = ReadFile(file_name, n); // ************ Try
-
+		try{
+			arr1 = ReadFile(file_name, n); }  // *********** Try
+		catch (const invalid_argument& error) {
+			cout<<error.what();}
+		cout << "\n";
 	
 		Screen_Mass(arr1); // выводим на экран массив введеных коэффициентов
 		arr.clear();
