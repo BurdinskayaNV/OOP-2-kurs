@@ -21,7 +21,7 @@ public:
 	LocCity(string Loc_name = "Locality", int Loc_population = 0, string Loc_power = "-", int Loc_house = 0, string Loc_occupation = "-",
 		    string Loc_leisure = "-", string Loc_info = "-", string Loc_Infrastructure = "-");
 
-        // сеттер и геттер для экологии
+        // сеттер и геттер для Инфраструктура 
 	void set_Infrastructure(string new_Infrastructure);
 	string get_Infrastructure() const;
 
