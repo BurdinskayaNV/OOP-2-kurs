@@ -54,20 +54,11 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 	int k = argc;
 	if (k == 1)
 	{
-		try { // ****** 
-			cout << "Введите размерность массива" << endl;
-			cout << "n = "; cin >> n;
-		}
-		catch (const length_error err) {
-			cout << err.what() << endl; // выводим сообщение об ошибке
-		}
-		try { // *******НЕ нужен
-			cout << "Введите имя файла " << endl;
-			cout << "file_name = "; cin >> file_name;
-		}
-		catch (const invalid_argument inval) {   //ловим исключение
-			cout << inval.what() << endl;
-		}
+		cout << "Введите размерность массива" << endl;
+		cout << "n = "; cin >> n;
+		cout << "\n";
+		cout << "Введите имя файла " << endl;
+		cout << "file_name = "; cin >> file_name;
 		cout << "\n";
 	}
 	
@@ -91,12 +82,7 @@ int main(int argc, char* argv[]) //главная функция, вызывае
 		catch (const std::length_error err) {
 			cout << err.what() << endl; // выводим сообщение об ошибке
 		}
-		try { // ********* не нужен
-			file_name = argv[2];
-		}
-		catch (const std::invalid_argument inval) {//ловим исключение
-			cout << inval.what() << endl;
-		}
+		file_name = argv[2];
 	}
 
 		vector<double> arr; // описываем массив как вектор
