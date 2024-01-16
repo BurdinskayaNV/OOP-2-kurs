@@ -12,6 +12,16 @@
 LocCity::LocCity(string Loc_name, int Loc_population, string Loc_power, int Loc_house, string Loc_occupation, string Loc_leisure, string Loc_info, string Loc_Infrastructure)
 	: Locality(Loc_name, Loc_population, Loc_power, Loc_house, Loc_occupation, Loc_leisure, Loc_info), Infrastructure (Loc_Infrastructure) {};
 
+// сеттер и геттер для Инфраструктура 
+void LocCity::set_Infrastructure(string new_Infrastructure) {
+	if (new_Infrastructure != "")
+		Infrastructure = new_Infrastructure;
+	else throw std::invalid_argument("Недействительный аргумент Infrastructure");
+}
+string LocCity::get_Infrastructure() const {
+	return Infrastructure;
+}
+
 // люди живут в каких домах
 string LocCity::live() const {
 	string ss = "нет";
