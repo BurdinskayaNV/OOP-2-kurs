@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="bodychat" stylesheets="@../../../style/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.botik.BotikWindowController">
+   <children>
+      <ImageView fitHeight="283.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/AvaBotik.PNG" />
+         </image>
+      </ImageView>
+      <TextField fx:id="TextFieldMessage" layoutX="281.0" layoutY="636.0" prefHeight="25.0" prefWidth="593.0">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </TextField>
+      <Button alignment="CENTER" contentDisplay="BOTTOM" layoutX="904.0" layoutY="615.0" mnemonicParsing="false" onAction="#onButtonSendMessage" prefHeight="54.0" prefWidth="70.0" text="ОК">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font></Button>
+      <Label layoutX="74.0" layoutY="642.0" prefHeight="17.0" prefWidth="145.0" text="Начните диалог">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="TextAreaMessages" blendMode="SRC_ATOP" layoutX="281.0" layoutY="58.0" prefHeight="556.0" prefWidth="593.0">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </TextArea>
+      <AnchorPane layoutX="14.0" layoutY="215.0" prefHeight="403.0" prefWidth="241.0" style="-fx-background-color: #FFEFD5;">
+         <children>
+            <Label layoutX="20.0" layoutY="22.0" text="Виртуальный помощник">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="64.0" text="- Привет, Ботик!">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="23.0" layoutY="100.0" text="- Какое сегодня число?">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="137.0" text="- Какая сегодня погода?">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="181.0" text="- Сколько времени?">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="223.0" text="- Пока">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <Button alignment="CENTER" contentDisplay="BOTTOM" layoutX="939.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExitClick" prefHeight="21.0" prefWidth="36.0" text="x">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
